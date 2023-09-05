@@ -161,15 +161,21 @@ class Beranda extends CI_Controller
     redirect(base_url('beranda/datasupplier'));
   }
 
-  public function delete_barang_keluar($idtransaksi)
+  public function delete_barang_keluar($id)
   {
     $this->load->model('M_admin');
-    $where = array('idtransaksi' => $idtransaksi);
+    $where = array('id' => $id);
     $this->M_admin->delete('barangkeluar', $where);
     $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success" role="alert">
     Data Berhasil di Hapus
       </div>');
-    redirect(base_url('beranda/laporanbarangkeluar'));
+      $idtransaksi = 0;
+      $idtransaksi = $this->db->query("SELECT barangmasuk.id, barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlah
+      FROM barangmasuk LEFT JOIN datamasuk ON datamasuk.idtransaksi=barangmasuk.idtransaksi
+      WHERE barangmasuk.idtransaksi='$idtransaksi' 
+      ")->result_array();
+     redirect(base_url('beranda/detail_keluar', $idtransaksi));
+    
   }
 
   public function delete_barang_masuk($id = 0)
@@ -333,64 +339,60 @@ class Beranda extends CI_Controller
       redirect(base_url('beranda/datakeluar'));
     }
   
-  public function submitbarangkeluar($idtransaksi = 0)
+  public function submitbarangkeluar()
   {
     $this->load->model('M_admin');
     $this->load->library('form_validation');
-
-    //rules
-    $this->form_validation->set_rules('idtransaksi', 'idtransaksi', 'required');
-    $this->form_validation->set_rules('kodebarang', 'Kode Barang', 'required|numeric');
-    $this->form_validation->set_rules('namabarang', 'Nama Barang', 'required');
-    $this->form_validation->set_rules('stok', 'Stok', 'required');
-    $this->form_validation->set_rules('jumlah', 'Jumlah', 'required|numeric');
-    $this->form_validation->set_rules('satuan', 'Satuan', 'required');
-  
-    $this->form_validation->set_message('required', '%s Tidak Boleh Kosong');
-    $this->form_validation->set_message('numeric', '%s Harus Di isi dengan angka');
-
-    if ($this->form_validation->run() != TRUE) {
-      $this->session->set_flashdata('gagal', '<div class="alert alert-danger" role="alert">
-    Pastikan Form terisi dengan Benar
-      </div>');
-      redirect(base_url('beranda/detail_keluar'));
-    }
-
-    $idtransaksi = $this->input->post('idtransaksi', TRUE);
-    $kodebarang  = $this->input->post('kodebarang', TRUE);
-    $namabarang  = $this->input->post('namabarang', TRUE);
-    $stok       = $this->input->post('stok', TRUE);
-    $jumlah       = $this->input->post('jumlah', TRUE);
-    $satuan       = $this->input->post('satuan', TRUE);
-
-    $data1 = array(
-      'idtransaksi' => $idtransaksi,
-      'kodebarang'  => $kodebarang,
-      'namabarang'  => $namabarang,
-      'stok'       => $stok,
-      'jumlah'       => $jumlah,
-      'satuan'       => $satuan
-    );
-    if ($stok >= $jumlah) {
-      $this->M_admin->insert('barangkeluar', $data1);
-      $this->session->set_flashdata('berhasilkeluar', '<div class="alert alert-success" role="alert">
-      Barang Berhasil Dikeluarkan </div>');
-      $where = array('idtransaksi' => $idtransaksi);
+    $idtransaksi = 0;
     
-      $data['list_data2'] = $this->M_admin->select('databarang');
-      $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
-      $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
-                                              FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
-                                              WHERE barangkeluar.idtransaksi='$idtransaksi' 
-                                              ")->result_array();
-      $this->load->view('detailkeluar', $data);
-      $this->load->view('modal_form_keluar', $data);
-      $this->load->view('modal', $data);
-    } else {
-      $this->session->set_flashdata('Stokkurang', '<div class="alert alert-danger" role="alert">
-      Stok Tidak mencukupi </div>');
-    }
-  }
+   //rules
+   $this->form_validation->set_rules('idtransaksi', 'idtransaksi', 'required');
+   $this->form_validation->set_rules('kodebarang', 'Kode Barang', 'required|numeric');
+   $this->form_validation->set_rules('namabarang', 'Nama Barang', 'required');
+   $this->form_validation->set_rules('jumlah', 'Jumlah', 'required|numeric');
+   $this->form_validation->set_rules('satuan', 'Satuan', 'required');
+   $this->form_validation->set_rules('stok', 'Stok', 'required');
+   $this->form_validation->set_message('required', '%s Tidak Boleh Kosong');
+   $this->form_validation->set_message('numeric', '%s Harus Di isi dengan angka');
+
+   if ($this->form_validation->run() != TRUE) {
+     $this->session->set_flashdata('gagal', '<div class="alert alert-danger" role="alert">
+   Pastikan Form terisi dengan Benar
+     </div>');
+     redirect(base_url('beranda/detail_keluar'));
+   }
+
+   $idtransaksi = $this->input->post('idtransaksi', TRUE);
+   $kodebarang  = $this->input->post('kodebarang', TRUE);
+   $namabarang  = $this->input->post('namabarang', TRUE);
+   $satuan       = $this->input->post('satuan', TRUE);
+   $stok       = $this->input->post('stok', TRUE);
+   $jumlah       = $this->input->post('jumlah', TRUE);
+
+   $data = array(
+     'idtransaksi' => $idtransaksi,
+     'kodebarang'  => $kodebarang,
+     'namabarang'  => $namabarang,
+     'satuan'       => $satuan,
+     'stok'       => $stok,
+     'jumlah'       => $jumlah
+   );
+   if ($jumlah <= 0) {
+     $this->session->set_flashdata('Stoksalah', '<div class="alert alert-danger" role="alert">
+     Jumlah Keluar Belum Diisi </div>');
+     redirect(base_url('beranda/detail_keluar'));
+   }
+   if ($stok >= $jumlah) {
+     $this->M_admin->insert('barangkeluar', $data);
+     $this->session->set_flashdata('berhasilkeluar', '<div class="alert alert-success" role="alert">
+     Barang Berhasil Dikeluarkan </div>');
+     redirect(base_url('beranda/detail_keluar'));
+   } else {
+     $this->session->set_flashdata('Stokkurang', '<div class="alert alert-danger" role="alert">
+     Stok Tidak mencukupi </div>');
+     redirect(base_url('beranda/detail_keluar'));
+   }
+ }
 
   function modalbarangkeluar()
   {

@@ -207,7 +207,7 @@
          <h5 class="modal-title" id="exampleModalLabel">Pilih Barang</h5>
        </div>
        <div class="modal-body table-responsive">
-         <table id="example1" class="table table-bordered table-striped">
+         <table id="example4" class="table table-bordered table-striped">
            <thead>
              <tr>
                <th>Kode Barang</th>
@@ -249,3 +249,4 @@
    
    </form>
  </div>
+ 

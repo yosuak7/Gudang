@@ -26,7 +26,7 @@
                             <input type="text" class="form-control" readonly name="namabarang" id="namabarang" placeholder="namabarang" required data-readonly readonly>
                         </div> <br>
                         <div class="form-group">
-                            <input type="number" class="form-control" name="jumlah" id="jumlah" placeholder="Jumlah" required data-readonly>
+                            <input type="number" class="form-control" name="jumlah" id="jumlah" placeholder="Jumlah" required>
                         </div> <br>
                         <div class="form-group">
                             <input type="text" class="form-control" name="satuan" id="satuan" placeholder="Satuan" required data-readonly readonly>
