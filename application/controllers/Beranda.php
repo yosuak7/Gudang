@@ -386,21 +386,13 @@ class Beranda extends CI_Controller
      $this->M_admin->insert('barangkeluar', $data);
      $this->session->set_flashdata('berhasilkeluar', '<div class="alert alert-success" role="alert">
      Barang Berhasil Dikeluarkan </div>');
-     redirect(base_url('beranda/detail_keluar'));
+     redirect(site_url('beranda/detail_keluar', $idtransaksi));
    } else {
      $this->session->set_flashdata('Stokkurang', '<div class="alert alert-danger" role="alert">
      Stok Tidak mencukupi </div>');
      redirect(base_url('beranda/detail_keluar'));
    }
  }
-
-  function modalbarangkeluar()
-  {
-    $this->load->model('M_admin');
-    $kode = $this->M_admin->get()->result();
-    $data = ['kodebarang' => $kode];
-    $this->load->view('V_Formbarangkeluar', $data);
-  }
 
   public function submitcustomer()
   {
@@ -542,16 +534,6 @@ class Beranda extends CI_Controller
     $this->load->view('V_Formdatakeluar', $data);
     $this->load->view('Modal');
   }
-  public function keluar_data_barang($kodebarang = 0)
-  {
-    $this->load->model('M_admin');
-    $data = array(
-      'list_data1' => $this->M_admin->select('datacustomer')
-    );
-    $where = array('kodebarang' => $kodebarang);
-    $data['list_data'] = $this->M_admin->get_data('databarang', $where);
-    $this->load->view('V_Formbarangkeluar', $data);
-  }
 
   public function detail_masuk($idtransaksi)
   {
@@ -648,7 +630,6 @@ class Beranda extends CI_Controller
     $namacustomer  = $this->input->post('namacustomer', TRUE);
     $alamat  = $this->input->post('alamat', TRUE);
     $telepon       = $this->input->post('telepon', TRUE);
-
 
     $where = array('id' => $id);
     $data = array(

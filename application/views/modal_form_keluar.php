@@ -32,6 +32,7 @@
                         <div class="form-group">
                             <input type="number" class="form-control" required name="jumlah" id="jumlah" placeholder="Jumlah">
                         </div> <br>
+                        <div style="margin-top: 7px;" id="checkstok"></div>
                         <div class="form-group">
                             <input type="text" class="form-control" readonly name="satuan" id="satuan" placeholder="Satuan">
                         </div> <br>
@@ -52,28 +53,29 @@
 </div>
 
 </div>
+
 <script>
     var jumlah = document.getElementById("jumlah");
+    var stok1 = document.getElementById("stok");
 
     function validateJumlah() {
-        if (jumlah.value <= 1) {
+        if (jumlah.value < 1) {
             jumlah.setCustomValidity("Jumlah Belum Di isi");
         } else {
             jumlah.setCustomValidity('');
         }
     }
     jumlah.onchange = validateJumlah;
-</script>
-<script>
-    var stok = document.getElementById("stok"),
-        jumlah = document.getElementById("jumlah");
+
 
     function validateStok() {
-        if (jumlah > stok) {
+        if (jumlah.value > stok1.value) {
             jumlah.setCustomValidity("Stok Tidak Mencukupi");
         } else {
             jumlah.setCustomValidity('');
         }
     }
+    stok1.onchange = validateStok;
     jumlah.onchange = validateStok;
+    
 </script>
