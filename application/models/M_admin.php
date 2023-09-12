@@ -115,4 +115,16 @@ class M_admin extends CI_Model
     $sql = "INSERT INTO barangmasuk (idtransaksi,kodebarang) SELECT datamasuk.idtransaksi FROM datamasuk WHERE datamasuk.idtransaksi=$idtransaksi AND barangmasuk.idtransaksi='$idtransaksi'";
     $this->db->query($sql);
   }
+  public function getdata()
+  {
+      return $this->db->get('databarang');
+  }
+  public function getcustomer()
+  {
+      return $this->db->get('datacustomer');
+  }
+  public function getsupplier()
+  {
+      return $this->db->get('datasupplier');
+  }
 }

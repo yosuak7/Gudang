@@ -19,18 +19,6 @@
                             <a class="nav-link" href="<?php echo base_url('Beranda/barangkeluar') ?>">Barang Keluar</a>
                         </nav>
                     </div>
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Laporan
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-
-                            <a class="nav-link" href="<?php echo base_url('Beranda/laporanbarangmasuk') ?>">Laporan Barang Masuk</a>
-                            <a class="nav-link" href="<?php echo base_url('Beranda/laporanbarangkeluar') ?>">Laporan Barang Keluar</a>
-                        </nav>
-                    </div>
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                         Data

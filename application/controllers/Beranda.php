@@ -380,17 +380,48 @@ class Beranda extends CI_Controller
    if ($jumlah <= 0) {
      $this->session->set_flashdata('Stoksalah', '<div class="alert alert-danger" role="alert">
      Jumlah Keluar Belum Diisi </div>');
-     redirect(base_url('beranda/detail_keluar'));
+     $where = array('idtransaksi' => $idtransaksi);
+     $data['list_data2'] = $this->M_admin->select('databarang');
+     $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
+     $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
+                                             FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
+                                             WHERE barangkeluar.idtransaksi='$idtransaksi' 
+                                             ")->result_array();
+     
+     $this->load->view('detailkeluar', $data);
+     $this->load->view('modal_form_keluar', $data);
+     $this->load->view('modal', $data);
    }
    if ($stok >= $jumlah) {
      $this->M_admin->insert('barangkeluar', $data);
      $this->session->set_flashdata('berhasilkeluar', '<div class="alert alert-success" role="alert">
      Barang Berhasil Dikeluarkan </div>');
-     redirect(site_url('beranda/detail_keluar', $idtransaksi));
+     $where = array('idtransaksi' => $idtransaksi);
+     $data['list_data2'] = $this->M_admin->select('databarang');
+     $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
+     $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
+                                             FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
+                                             WHERE barangkeluar.idtransaksi='$idtransaksi' 
+                                             ")->result_array();
+     
+     $this->load->view('detailkeluar', $data);
+     $this->load->view('modal_form_keluar', $data);
+     $this->load->view('modal', $data);
+ 
    } else {
      $this->session->set_flashdata('Stokkurang', '<div class="alert alert-danger" role="alert">
      Stok Tidak mencukupi </div>');
-     redirect(base_url('beranda/detail_keluar'));
+     $where = array('idtransaksi' => $idtransaksi);
+     $data['list_data2'] = $this->M_admin->select('databarang');
+     $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
+     $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
+                                             FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
+                                             WHERE barangkeluar.idtransaksi='$idtransaksi' 
+                                             ")->result_array();
+     
+     $this->load->view('detailkeluar', $data);
+     $this->load->view('modal_form_keluar', $data);
+     $this->load->view('modal', $data);
    }
  }
 

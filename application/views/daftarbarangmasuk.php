@@ -22,7 +22,7 @@
                                     <?php echo $this->session->flashdata('berhasildelete'); ?>
                                     <h3 class="box-title"><i class="fa fa-table" aria-hidden="true"></i>Tambah Masuk</h3>
                                 </div>
-                                <a href="<?= base_url('beranda/datamasuk'); ?>" class="btn btn-info mb-3"><i class="fa fa-plus"></i> Tambah Customer</a>
+                                <a href="<?= base_url('beranda/datamasuk'); ?>" class="btn btn-info mb-3"><i class="fa fa-plus"></i> Tambah Supplier Masuk</a>
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>

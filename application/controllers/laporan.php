@@ -13,7 +13,7 @@ class Laporan extends CI_Controller
         $data['barangmasuk'] = $this->M_admin->get()->result_array();
         // $this->load->library('dompdf_gen');
         $sroot = $_SERVER['DOCUMENT_ROOT'];
-        include $sroot . "/projectinventory/application/third_party/dompdf/autoload.inc.php";
+        include $sroot . "/Gudang/application/third_party/dompdf/autoload.inc.php";
         $dompdf = new Dompdf\Dompdf();
         $this->load->view('laporan_masuk_pdf', $data);
         $paper_size = 'A4'; // ukuran kertas
@@ -38,7 +38,7 @@ class Laporan extends CI_Controller
         $data['barangkeluar'] = $this->M_admin->getkeluar()->result_array();
         // $this->load->library('dompdf_gen');
         $sroot = $_SERVER['DOCUMENT_ROOT'];
-        include $sroot . "/projectinventory/application/third_party/dompdf/autoload.inc.php";
+        include $sroot . "/Gudang/application/third_party/dompdf/autoload.inc.php";
         $dompdf = new Dompdf\Dompdf();
         $this->load->view('laporan_keluar_pdf', $data);
         $paper_size = 'A4'; // ukuran kertas
@@ -51,7 +51,7 @@ class Laporan extends CI_Controller
         $dompdf->stream("laporan_Barang_Keluar.pdf", array('Attachment' => 0));
         // nama file pdf yang di hasilkan
     }
-    public function export_excel_keluar()
+    public function export_excel_keluar() 
     {
         $this->load->model('M_admin');
         $data= array ('title' => 'Laporan Barang Keluar', 'barangkeluar' => $this->M_admin->getkeluar()->result_array());
@@ -63,7 +63,7 @@ class Laporan extends CI_Controller
         $data['databarang'] = $this->M_admin->getdata()->result_array();
         // $this->load->library('dompdf_gen');
         $sroot = $_SERVER['DOCUMENT_ROOT'];
-        include $sroot . "/projectinventory/application/third_party/dompdf/autoload.inc.php";
+        include $sroot . "/Gudang/application/third_party/dompdf/autoload.inc.php";
         $dompdf = new Dompdf\Dompdf();
         $this->load->view('laporan_barang_pdf', $data);
         $paper_size = 'A4'; // ukuran kertas
@@ -88,7 +88,7 @@ class Laporan extends CI_Controller
         $data['datacustomer'] = $this->M_admin->getcustomer()->result_array();
         // $this->load->library('dompdf_gen');
         $sroot = $_SERVER['DOCUMENT_ROOT'];
-        include $sroot . "/projectinventory/application/third_party/dompdf/autoload.inc.php";
+        include $sroot . "/Gudang/application/third_party/dompdf/autoload.inc.php";
         $dompdf = new Dompdf\Dompdf();
         $this->load->view('laporan_customer_pdf', $data);
         $paper_size = 'A4'; // ukuran kertas
@@ -113,7 +113,7 @@ class Laporan extends CI_Controller
         $data['datasupplier'] = $this->M_admin->getsupplier()->result_array();
         // $this->load->library('dompdf_gen');
         $sroot = $_SERVER['DOCUMENT_ROOT'];
-        include $sroot . "/projectinventory/application/third_party/dompdf/autoload.inc.php";
+        include $sroot . "/Gudang/application/third_party/dompdf/autoload.inc.php";
         $dompdf = new Dompdf\Dompdf();
         $this->load->view('laporan_supplier_pdf', $data);
         $paper_size = 'A4'; // ukuran kertas
