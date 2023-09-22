@@ -132,6 +132,31 @@ class Laporan extends CI_Controller
         $data= array ('title' => 'Data Supplier ', 'datasupplier' => $this->M_admin->getsupplier()->result_array());
         $this->load->view('export_data_supplier', $data);
     }
+    public function printbarangkeluar($idtransaksi = 0)
+    {
+        $this->load->model('M_admin');
+        $where = array('idtransaksi' => $idtransaksi);
+        $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
+        $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
+                                                FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
+                                                WHERE barangkeluar.idtransaksi='$idtransaksi' 
+                                                ")->result_array();
+        // $this->load->library('dompdf_gen');
+        $sroot = $_SERVER['DOCUMENT_ROOT'];
+        include $sroot . "/Gudang/application/third_party/dompdf/autoload.inc.php";
+        $dompdf = new Dompdf\Dompdf();
+        $this->load->view('barang_keluar_pdf', $data);
+        $paper_size = 'A4'; // ukuran kertas
+        $orientation = 'potrait'; //tipe format kertas potrait atau landscape
+        $html = $this->output->get_output();
+        $dompdf->set_paper($paper_size, $orientation);
+        //Convert to PDF
+        $dompdf->load_html($html);
+        $dompdf->render();
+        $dompdf->stream("Surat_Jalan_Keluar", array('Attachment' => 0));
+        // nama file pdf yang di hasilkan
+    }
 }
+
 
 ?>

@@ -20,6 +20,10 @@
                                 <?php echo $this->session->flashdata('Stoksalah'); ?>
                                 <?php echo $this->session->flashdata('berhasildelete'); ?>
                                 <div class="box-header with-border">
+                                <?php
+                                                foreach ($list_data1 as $dd) { ?>
+                                <a href="<?= base_url('laporan/printbarangkeluar/' . $dd->idtransaksi); ?>" class="btn btn-info mb-3"><i class="fa fa-print"></i> Print</a>
+                                <?php } ?>
                                     <h5 class="box-title"><i class="fa fa-archive" aria-hidden="true"></i> Tambah Barang Keluar</h5>
                                 </div>
                                 <!-- /.box-header -->

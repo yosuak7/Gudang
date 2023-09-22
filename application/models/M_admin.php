@@ -93,14 +93,6 @@ class M_admin extends CI_Model
       ->where('username', $username)
       ->get();
   }
-  public function joinData()
-  {
-    $this->db->select('*');
-    $this->db->from('datamasuk');
-    $this->db->join('barangmasuk', 'barangmasuk.idtransaksi=datamasuk.idtransaksi');
-    $this->db->get();
-    
-  }
 
   public function detail_masuk()
   {
@@ -112,7 +104,9 @@ class M_admin extends CI_Model
 
   public function Detail($idtransaksi)
   {
-    $sql = "INSERT INTO barangmasuk (idtransaksi,kodebarang) SELECT datamasuk.idtransaksi FROM datamasuk WHERE datamasuk.idtransaksi=$idtransaksi AND barangmasuk.idtransaksi='$idtransaksi'";
+    $sql = "SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
+                                                FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
+                                                WHERE barangkeluar.idtransaksi='$idtransaksi')";
     $this->db->query($sql);
   }
   public function getdata()
