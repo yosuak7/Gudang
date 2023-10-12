@@ -43,7 +43,7 @@
                         </div>
                       <!-- /.box-body -->
                       <div class="box-footer" style="width:93%;">
-                        <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" onclick="history.back(-1)" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
+                        <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" href ="<?= base_url('beranda/datacustomer') ?>" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
                         <button type="reset" class="btn btn-info" style="width:14%;margin-right:29%" name="btn_reset"> Reset</button>
                         <button type="submit" style="width:20%" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Submit</button>
                       </div>

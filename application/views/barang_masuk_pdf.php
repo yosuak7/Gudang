@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-    <title>Surat Jalan</title>
+    <title>Bukti Terima Barang Masuk</title>
     <meta charset="utf-8">
     <style>
         #judul {
@@ -37,16 +37,16 @@
         <?php
             foreach ($list_data1 as $dd) {
             ?>
-        <div style="width: 50%; text-align: left; float: left;">No. Surat Jalan : <?php echo $dd->idtransaksi; ?> </div>
+        <div style="width: 50%; text-align: left; float: left;">No. Nota : <?php echo $dd->idtransaksi; ?> </div>
 
         <div style="width: 50%; text-align: right; float: right;">Jakarta, </div><br>
-        <div style="width: 50%; text-align: right; float: right;">Kepada Yth, <?php echo $dd->namacustomer; ?>  </div>
+        <div style="width: 50%; text-align: right; float: right;">Dari, <?php echo $dd->namasupplier; ?>  </div>
         <div style="width: 50%; text-align: left; float: left;">Tanggal : <?php echo $dd->tanggal; ?> </div><br>
         <div style="width: 50%; text-align: right; float: right;"> <?php echo $dd->alamat; ?> </div><br>
         <?php
             }
             ?>
-        <h3 id=judul2>Barang Keluar</h3>
+        <h3 id=judul2>Bukti Terima Barang Masuk</h3>
         <hr />
         <table rules="none" border="1" class="table-data">
 
@@ -70,7 +70,7 @@
         <hr />
         
 
-        <div style="width: 50%; text-align: left; float: left;">Diserahkan oleh, </div>
+        <div style="width: 50%; text-align: left; float: left;">Dibuat oleh, </div>
         <div style="width: 50%; text-align: right; float: right;">Diterima Oleh,</div><br><br><br><br>
         <div style="width: 50%; text-align: left; float: left;"><hr width="40%" align="left"/></div>
         <div style="width: 50%; text-align: right; float: right;"><hr width="40%" align="right"/></div>

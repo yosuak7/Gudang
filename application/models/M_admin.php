@@ -93,22 +93,6 @@ class M_admin extends CI_Model
       ->where('username', $username)
       ->get();
   }
-
-  public function detail_masuk()
-  {
-    $this->db->select('barangmasuk.idtransaksi, barangmasuk.kodebarang, barangmasuk.namabarang, barangmasuk.jumlah, barangmasuk.satuan');
-		$this->db->from('barangmasuk');
-		$this->db->join('datamasuk', 'datamasuk.idtransaksi = barangmasuk.idtransaksi', 'full');
-		return $this->db->get();
-  }
-
-  public function Detail($idtransaksi)
-  {
-    $sql = "SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
-                                                FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
-                                                WHERE barangkeluar.idtransaksi='$idtransaksi')";
-    $this->db->query($sql);
-  }
   public function getdata()
   {
       return $this->db->get('databarang');
