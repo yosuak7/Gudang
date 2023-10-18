@@ -66,16 +66,5 @@
         }
     }
     jumlah.onchange = validateJumlah;
-
-
-    function validateStok() {
-        if (jumlah.value > stok1.value) {
-            jumlah.setCustomValidity("Stok Tidak Mencukupi");
-        } else {
-            jumlah.setCustomValidity('');
-        }
-    }
-    stok1.onchange = validateStok;
-    jumlah.onchange = validateStok;
     
 </script>

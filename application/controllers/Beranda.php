@@ -174,16 +174,19 @@ class Beranda extends CI_Controller
       FROM barangmasuk LEFT JOIN datamasuk ON datamasuk.idtransaksi=barangmasuk.idtransaksi
       WHERE barangmasuk.idtransaksi='$idtransaksi' 
       ")->result_array();
-     redirect(base_url('beranda/detail_keluar', $idtransaksi));
+     return(site_url('beranda/detail_keluar', $idtransaksi));
     
   }
 
-  public function delete_barang_masuk($id = 0)
+  public function delete_barang_masuk($id)
   {
     $this->load->model('M_admin');
     $idtransaksi = 0;
     $where1 = array('id' => $id);
-    $where = array('idtransaksi' => $idtransaksi);
+    
+    $this->M_admin->delete('barangmasuk', $where1);
+    $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success" role="alert"> Data Berhasil di Hapus </div>');
+      $where = array('idtransaksi' => $idtransaksi);
     
       $data['list_data2'] = $this->M_admin->select('databarang');
       $data['list_data1'] = $this->M_admin->get_data('datamasuk', $where);
@@ -191,17 +194,7 @@ class Beranda extends CI_Controller
                                               FROM barangmasuk LEFT JOIN datamasuk ON datamasuk.idtransaksi=barangmasuk.idtransaksi
                                               WHERE barangmasuk.idtransaksi='$idtransaksi' 
                                               ")->result_array();
-    
-      
-    $this->M_admin->delete('barangmasuk', $where1);
-    $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success" role="alert">
-    Data Berhasil di Hapus
-      </div>');
-      $this->load->view('detailmasuk', $data, '<div class="alert alert-success" role="alert">
-      Data Berhasil di Hapus
-        </div>');
-      $this->load->view('modal_form', $data);
-      $this->load->view('modal', $data);
+           redirect(base_url('beranda/detail_keluar', $data));
       
       
   }
@@ -914,4 +907,3 @@ class Beranda extends CI_Controller
     }
   }
 }
-?>

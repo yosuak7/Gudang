@@ -19,7 +19,6 @@
                                 <div class="box-body">
                                     <?php echo $this->session->flashdata('pesan'); ?>
                                     <?php echo $this->session->flashdata('Stokkosong'); ?>
-                                    <?php echo $this->session->flashdata('berhasildelete'); ?>
                                     <h3 class="box-title"><i class="fa fa-table" aria-hidden="true"></i>Tambah Masuk</h3>
                                 </div>
                                 <a href="<?= base_url('beranda/datamasuk'); ?>" class="btn btn-info mb-3"><i class="fa fa-plus"></i> Tambah Supplier Masuk</a>

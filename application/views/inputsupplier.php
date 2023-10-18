@@ -7,7 +7,7 @@
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-      <?php echo $this->session->flashdata('berhasiltambahsupplier'); ?>
+        <?php echo $this->session->flashdata('berhasiltambahsupplier'); ?>
         <h3>
           Input Data Supplier Baru
         </h3>
@@ -26,27 +26,27 @@
                   <form action="<?= site_url('beranda/submitsupplier') ?>" role="form" method="post">
                     <div class="box-body">
                       <div class="form-group">
-                        <div class="form-group" style="margin-left:13px;display;">
+                        <div class="form-group" style="margin-left:13px;display:inline;">
                           <label for="nama_supllier" style="width:90%;margin-left: 12px;">Nama Supplier</label>
                           <input type="text" name="namasupplier" style="width:50%;margin-right: 50px;" class="form-control" id="namasupplier" placeholder="Nama Supllier">
                           <small><span class="text-danger"><?php echo form_error('namasupplier', '<small class="text-danger pl-3">', '</small>'); ?></span></small>
                         </div>
-                        <div class="form-group" style="margin-left:13px;display;">
+                        <div class="form-group" style="margin-left:13px;display:inline;">
                           <label for="alamat" style="width:90%;">Alamat</label>
-                          <textarea   type="text" name="alamat" style="width:50%; margin-right: 50px;" class="form-control" id="alamat" placeholder="Alamat" cols="30" rows="10"></textarea>
+                          <textarea type="text" name="alamat" style="width:50%; margin-right: 50px;" class="form-control" id="alamat" placeholder="Alamat" cols="30" rows="10"></textarea>
                           <small><span class="text-danger"><?php echo form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?></span></small>
                         </div>
-                        <div class="form-group" style="margin-left:13px;display;">
+                        <div class="form-group" style="margin-left:13px;display:inline;">
                           <label for="telepon" style="width:90%;">Nomor Telepon</label>
                           <input type="text" name="telepon" style="width:50%;margin-right: 50px;" class="form-control" id="telepon" placeholder="Telp">
                           <small><span class="text-danger"><?php echo form_error('telepon', '<small class="text-danger pl-3">', '</small>'); ?></span></small>
                         </div>
-                      <!-- /.box-body -->
-                      <div class="box-footer" style="width:93%;">
-                        <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" onclick="history.back(-1)" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
-                        <button type="reset" class="btn btn-info" style="width:14%;margin-right:29%" name="btn_reset"> Reset</button>
-                        <button type="submit" style="width:20%" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Submit</button>
-                      </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer" style="width:93%;">
+                          <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" href="<?= base_url('beranda/datasupplier') ?>" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
+                          <button type="reset" class="btn btn-info" style="width:14%;margin-right:29%" name="btn_reset"> Reset</button>
+                          <button type="submit" style="width:20%" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Submit</button>
+                        </div>
                   </form>
                 </div>
               </div>
