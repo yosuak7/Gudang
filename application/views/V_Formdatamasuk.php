@@ -6,9 +6,6 @@
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-        <h3>
-          Input Data Masuk
-        </h3>
         <!-- Main content -->
         <div class="row">
           <!-- left column -->
@@ -18,6 +15,9 @@
               <div class="box box-primary" style="width:94%;">
                 <?php echo $this->session->flashdata('berhasilmasuk'); ?>
                 <div class="box-header with-border">
+                  <h3>
+                    Input Data Masuk
+                  </h3>
                   <h5 class="box-title"><i class="fa fa-archive" aria-hidden="true"></i> Tambah Data Masuk</h5>
                 </div>
                 <!-- nomor transaksi otomatis -->
@@ -66,7 +66,7 @@
 
                     <!-- /.box-body -->
                     <div class="box-footer" style="width:93%;">
-                      <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" href="<?= base_url('beranda/barangmasuk')?>" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
+                      <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" href="<?= base_url('beranda/barangmasuk') ?>" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
                       <button type="reset" class="btn btn-info" style="width:14%;margin-right:29%" name="btn_reset"> Reset</button>
                       <button type="submit" style="width:20%" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Submit</button>
                     </div>

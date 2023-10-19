@@ -6,7 +6,7 @@
   <main>
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
-      <section class="content-header" style="margin-left:13px;display;">
+      <section class="content-header" style="width:90%;margin-left: 12px;">
         <h3>
           Input Data Barang Baru
         </h3>
@@ -23,21 +23,21 @@
                   <h5 class="box-title"><i class="fa fa-archive" aria-hidden="true"></i> Tambah Data Barang</h5>
                 </div>
                 <!-- /.box-header -->
-                <div class="container"> 
+                <div class="container">
                   <form action="<?= site_url('beranda/submitbarangbaru') ?>" role="form" method="post">
                     <div class="box-body">
                       <div class="form-group">
-                        <div class="form-group" style="margin-left:13px;display;">
+                        <div class="form-group" style="margin-left:13px;display:inline;">
                           <label for="kode_barang" style="width:90%;margin-left: 12px;">Kode Barang / Barcode</label>
                           <input type="text" name="kodebarang" style="width:50%;margin-right: 50px;" class="form-control" id="kode_barang" placeholder="Kode Barang" required="">
                           <small><span class="text-danger"><?php echo form_error('kodebarang', '<small class="text-danger pl-3">', '</small>'); ?></span></small>
                         </div>
-                        <div class="form-group" style="margin-left:13px;display;">
+                        <div class="form-group" style="margin-left:13px;display:inline;">
                           <label for="nama_Barang" style="width:90%;">Nama Barang</label>
                           <input type="text" name="namabarang" style="width:50%;margin-right: 50px;" class="form-control" id="nama_Barang" placeholder="Nama Barang" required="">
                           <small><span class="text-danger"><?php echo form_error('namabarang', '<small class="text-danger pl-3">', '</small>'); ?></span></small>
                         </div>
-                        <div class="form-group" style="margin-left:13px;display;">
+                        <div class="form-group" style="margin-left:13px;display:inline;">
                           <label for="nama_Barang" style="width:90%;">Satuan</label>
                           <input type="text" name="satuan" style="width:50%;margin-right: 50px;" class="form-control" id="nama_Barang" placeholder="Satuan" required="">
                           <small><span class="text-danger"><?php echo form_error('satuan', '<small class="text-danger pl-3">', '</small>'); ?></span></small>
@@ -45,7 +45,7 @@
                       </div>
                       <!-- /.box-body -->
                       <div class="box-footer" style="width:93%;">
-                        <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" onclick="history.back(-1)" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
+                        <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" href="<?= (base_url('beranda/laporandatabarang')); ?>" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
                         <button type="reset" class="btn btn-info" style="width:14%;margin-right:29%" name="btn_reset"> Reset</button>
                         <button type="submit" style="width:20%" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Submit</button>
                       </div>

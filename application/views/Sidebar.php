@@ -26,7 +26,7 @@
                     </a>
                     <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="<?php echo base_url('Beranda/laporandatabarang') ?>">Data Barang</a>
+                            <a class="nav-link" href="<?php echo base_url('Beranda/laporandatabarang') ?>">Data Barang</a>
                             <a class="nav-link" href="<?php echo base_url('Beranda/datacustomer') ?>">Data Customer</a>
                             <a class="nav-link" href="<?php echo base_url('Beranda/datasupplier') ?>">Data Supplier</a>
                         </nav>
@@ -43,9 +43,7 @@
                 </div>
             </div>
             <div class="sb-sidenav-footer">
-
                 <a>Logged in as: <?= $this->session->userdata('name') ?></a>
-
             </div>
         </nav>
     </div>

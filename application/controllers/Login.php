@@ -15,7 +15,7 @@ class Login extends CI_Controller {
 	}
 
 	public function token_generate(){
-		return $tokens = md5(uniqid(rand(), true));
+		return $tokens = md5(uniqid( true));
 	}
 
 	public function register(){

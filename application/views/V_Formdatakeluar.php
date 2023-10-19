@@ -6,9 +6,6 @@
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-        <h3>
-          Input Data Barang Keluar
-        </h3>
         <!-- Main content -->
         <div class="row">
           <!-- left column -->
@@ -20,7 +17,10 @@
                 <?php echo $this->session->flashdata('Stokkurang'); ?>
                 <?php echo $this->session->flashdata('gagal'); ?>
                 <div class="box-header with-border">
-                  <h5 class="box-title"><i class="fa fa-archive" aria-hidden="true"></i> Tambah Data Barang Keluar</h5>
+                  <h3>
+                    Input Data Keluar
+                  </h3>
+                  <h5 class="box-title"><i class="fa fa-archive" aria-hidden="true"></i> Tambah Data Customer Barang Keluar</h5>
                 </div>
                 <!-- nomor transaksi otomatis -->
                 <?php
@@ -40,8 +40,8 @@
                   <form action="<?= site_url('beranda/submitdatakeluar') ?>" role="form" method="post">
                     <div class="box-body">
                       <div class="form-group">
-                          <label for="idtransaksi" style="margin-left:220px;display:inline;">ID Transaksi</label>
-                          <input type="text" name="idtransaksi" style="margin-left:37px;width:20%;display:inline;" class="form-control" readonly="readonly" value="<?= $kd ?>">
+                        <label for="idtransaksi" style="margin-left:220px;display:inline;">ID Transaksi</label>
+                        <input type="text" name="idtransaksi" style="margin-left:37px;width:20%;display:inline;" class="form-control" readonly="readonly" value="<?= $kd ?>">
                       </div>
                       <div class="form-group">
                         <label for="tanggal" style="margin-left:220px;display:inline;">Tanggal</label>
@@ -65,12 +65,12 @@
                         <label for="telepon" style="width:90%;">Telepon</label>
                         <input type="text" name="telepon" readonly="readonly" style="width:50%;margin-right: 50px;" class="form-control" id="telepon" placeholder="Telepon" value="">
                       </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer" style="width:93%;">
-                      <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" href="<?= base_url('beranda/barangkeluar')?>" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
-                      <button type="reset" class="btn btn-info" style="width:14%;margin-right:29%" name="btn_reset"> Reset</button>
-                      <button type="submit" style="width:20%" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Submit</button>
-                    </div>
+                      <!-- /.box-body -->
+                      <div class="box-footer" style="width:93%;">
+                        <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" href="<?= base_url('beranda/barangkeluar') ?>" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
+                        <button type="reset" class="btn btn-info" style="width:14%;margin-right:29%" name="btn_reset"> Reset</button>
+                        <button type="submit" style="width:20%" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Submit</button>
+                      </div>
                   </form>
                 </div>
               </div>

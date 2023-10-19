@@ -15,7 +15,7 @@ class Beranda extends CI_Controller
     } else {
       $this->load->view('login/login');
     }
-  } 
+  }
 
 
   public function barangmasuk()
@@ -115,7 +115,7 @@ class Beranda extends CI_Controller
       </div>');
     redirect(base_url('beranda/laporandatabarang'));
   }
-  
+
   public function delete_transaksi_masuk($idtransaksi)
   {
     $this->load->model('M_admin');
@@ -169,13 +169,12 @@ class Beranda extends CI_Controller
     $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success" role="alert">
     Data Berhasil di Hapus
       </div>');
-      $idtransaksi = 0;
-      $idtransaksi = $this->db->query("SELECT barangmasuk.id, barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlah
+    $idtransaksi = 0;
+    $idtransaksi = $this->db->query("SELECT barangmasuk.id, barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlah
       FROM barangmasuk LEFT JOIN datamasuk ON datamasuk.idtransaksi=barangmasuk.idtransaksi
       WHERE barangmasuk.idtransaksi='$idtransaksi' 
       ")->result_array();
-     return(site_url('beranda/detail_keluar', $idtransaksi));
-    
+    return (site_url('beranda/detail_keluar', $idtransaksi));
   }
 
   public function delete_barang_masuk($id)
@@ -183,23 +182,19 @@ class Beranda extends CI_Controller
     $this->load->model('M_admin');
     $idtransaksi = 0;
     $where1 = array('id' => $id);
-    
+
     $this->M_admin->delete('barangmasuk', $where1);
     $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success" role="alert"> Data Berhasil di Hapus </div>');
-      $where = array('idtransaksi' => $idtransaksi);
-    
-      $data['list_data2'] = $this->M_admin->select('databarang');
-      $data['list_data1'] = $this->M_admin->get_data('datamasuk', $where);
-      $data['detail'] = $this->db->query("SELECT barangmasuk.id, barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlah
+    $where = array('idtransaksi' => $idtransaksi);
+
+    $data['list_data2'] = $this->M_admin->select('databarang');
+    $data['list_data1'] = $this->M_admin->get_data('datamasuk', $where);
+    $data['detail'] = $this->db->query("SELECT barangmasuk.id, barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlah
                                               FROM barangmasuk LEFT JOIN datamasuk ON datamasuk.idtransaksi=barangmasuk.idtransaksi
                                               WHERE barangmasuk.idtransaksi='$idtransaksi' 
                                               ")->result_array();
-           redirect(base_url('beranda/detail_keluar', $data));
-      
-      
+    redirect(base_url('beranda/detail_keluar', $data));
   }
-
-
   function submitbarangmasuk($idtransaksi = 0)
   {
     $this->load->model('M_admin');
@@ -214,8 +209,8 @@ class Beranda extends CI_Controller
 
     $this->form_validation->set_message('required', '%s Tidak Boleh Kosong');
     $this->form_validation->set_message('numeric', '%s Harus Di isi dengan angka');
-   
-    
+
+
     if ($this->form_validation->run() != TRUE) {
       $this->session->set_flashdata('gagal', '<div class="alert alert-danger" role="alert">
     Pastikan Form terisi dengan Benar
@@ -244,7 +239,7 @@ class Beranda extends CI_Controller
       $this->session->set_flashdata('berhasilmasuk', '<div class="alert alert-success" role="alert">
       Barang Berhasil Dimasukkan </div>');
       $where = array('idtransaksi' => $idtransaksi);
-    
+
       $data['list_data2'] = $this->M_admin->select('databarang');
       $data['list_data1'] = $this->M_admin->get_data('datamasuk', $where);
       $data['detail'] = $this->db->query("SELECT barangmasuk.id, barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlah
@@ -279,7 +274,7 @@ class Beranda extends CI_Controller
     $namasupplier       = $this->input->post('namasupplier', TRUE);
     $alamat  = $this->input->post('alamat', TRUE);
     $telepon  = $this->input->post('telepon', TRUE);
-   
+
 
     $data = array(
       'idtransaksi' => $idtransaksi,
@@ -288,13 +283,13 @@ class Beranda extends CI_Controller
       'alamat'  => $alamat,
       'telepon'       => $telepon
     );
-      $this->M_admin->insert('datamasuk', $data);
-      $this->session->set_flashdata('berhasilmasuk', '<div class="alert alert-success" role="alert">
+    $this->M_admin->insert('datamasuk', $data);
+    $this->session->set_flashdata('berhasilmasuk', '<div class="alert alert-success" role="alert">
       Data Berhasil Ditambahkan </div>');
-      redirect(base_url('beranda/datamasuk'));
-    }
+    redirect(base_url('beranda/datamasuk'));
+  }
 
-    function submitdatakeluar()
+  function submitdatakeluar()
   {
     $this->load->model('M_admin');
     $this->load->library('form_validation');
@@ -317,7 +312,7 @@ class Beranda extends CI_Controller
     $namacustomer      = $this->input->post('namacustomer', TRUE);
     $alamat  = $this->input->post('alamat', TRUE);
     $telepon  = $this->input->post('telepon', TRUE);
-   
+
 
     $data = array(
       'idtransaksi' => $idtransaksi,
@@ -326,115 +321,101 @@ class Beranda extends CI_Controller
       'alamat'  => $alamat,
       'telepon'       => $telepon
     );
-      $this->M_admin->insert('datakeluar', $data);
-      $this->session->set_flashdata('berhasilkeluar', '<div class="alert alert-success" role="alert">
+    $this->M_admin->insert('datakeluar', $data);
+    $this->session->set_flashdata('berhasilkeluar', '<div class="alert alert-success" role="alert">
       Data Berhasil Ditambahkan </div>');
-      redirect(base_url('beranda/datakeluar'));
-    }
-  
+    redirect(base_url('beranda/datakeluar'));
+  }
+
   public function submitbarangkeluar()
   {
     $this->load->model('M_admin');
     $this->load->library('form_validation');
     $idtransaksi = 0;
-    
-   //rules
-   $this->form_validation->set_rules('idtransaksi', 'idtransaksi', 'required');
-   $this->form_validation->set_rules('kodebarang', 'Kode Barang', 'required|numeric');
-   $this->form_validation->set_rules('namabarang', 'Nama Barang', 'required');
-   $this->form_validation->set_rules('jumlah', 'Jumlah', 'required|numeric');
-   $this->form_validation->set_rules('satuan', 'Satuan', 'required');
-   $this->form_validation->set_rules('stok', 'Stok', 'required');
-   $this->form_validation->set_message('required', '%s Tidak Boleh Kosong');
-   $this->form_validation->set_message('numeric', '%s Harus Di isi dengan angka');
-
-   if ($this->form_validation->run() != TRUE) {
-     $this->session->set_flashdata('gagal', '<div class="alert alert-danger" role="alert">
-   Pastikan Form terisi dengan Benar
-     </div>');
-     redirect(base_url('beranda/detail_keluar'));
-   }
-
-   $idtransaksi = $this->input->post('idtransaksi', TRUE);
-   $kodebarang  = $this->input->post('kodebarang', TRUE);
-   $namabarang  = $this->input->post('namabarang', TRUE);
-   $satuan       = $this->input->post('satuan', TRUE);
-   $stok       = $this->input->post('stok', TRUE);
-   $jumlah       = $this->input->post('jumlah', TRUE);
-
-   $data = array(
-     'idtransaksi' => $idtransaksi,
-     'kodebarang'  => $kodebarang,
-     'namabarang'  => $namabarang,
-     'satuan'       => $satuan,
-     'stok'       => $stok,
-     'jumlah'       => $jumlah
-   );
-   if ($jumlah <= 0) {
-     $this->session->set_flashdata('Stoksalah', '<div class="alert alert-danger" role="alert">
-     Jumlah Keluar Belum Diisi </div>');
-     $where = array('idtransaksi' => $idtransaksi);
-     $data['list_data2'] = $this->M_admin->select('databarang');
-     $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
-     $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
-                                             FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
-                                             WHERE barangkeluar.idtransaksi='$idtransaksi' 
-                                             ")->result_array();
-     
-     $this->load->view('detailkeluar', $data);
-     $this->load->view('modal_form_keluar', $data);
-     $this->load->view('modal', $data);
-   }
-   if ($stok >= $jumlah) {
-     $this->M_admin->insert('barangkeluar', $data);
-     $this->session->set_flashdata('berhasilkeluar', '<div class="alert alert-success" role="alert">
-     Barang Berhasil Dikeluarkan </div>');
-     $where = array('idtransaksi' => $idtransaksi);
-     $data['list_data2'] = $this->M_admin->select('databarang');
-     $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
-     $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
-                                             FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
-                                             WHERE barangkeluar.idtransaksi='$idtransaksi' 
-                                             ")->result_array();
-     
-     $this->load->view('detailkeluar', $data);
-     $this->load->view('modal_form_keluar', $data);
-     $this->load->view('modal', $data);
- 
-   } else {
-     $this->session->set_flashdata('Stokkurang', '<div class="alert alert-danger" role="alert">
-     Stok Tidak mencukupi </div>');
-     $where = array('idtransaksi' => $idtransaksi);
-     $data['list_data2'] = $this->M_admin->select('databarang');
-     $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
-     $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
-                                             FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
-                                             WHERE barangkeluar.idtransaksi='$idtransaksi' 
-                                             ")->result_array();
-     
-     $this->load->view('detailkeluar', $data);
-     $this->load->view('modal_form_keluar', $data);
-     $this->load->view('modal', $data);
-   }
- }
-
-  public function submitcustomer()
-  {
-    $this->load->model('M_admin');
-    $this->load->library('form_validation');
 
     //rules
-    $this->form_validation->set_rules('namacustomer', 'Nama Customer', 'required');
-    $this->form_validation->set_rules('alamat', 'Alamat', 'required');
-    $this->form_validation->set_rules('telepon', 'Nomor Telepon', 'required|numeric');
-
+    $this->form_validation->set_rules('idtransaksi', 'idtransaksi', 'required');
+    $this->form_validation->set_rules('kodebarang', 'Kode Barang', 'required|numeric');
+    $this->form_validation->set_rules('namabarang', 'Nama Barang', 'required');
+    $this->form_validation->set_rules('jumlah', 'Jumlah', 'required|numeric');
+    $this->form_validation->set_rules('satuan', 'Satuan', 'required');
+    $this->form_validation->set_rules('stok', 'Stok', 'required');
     $this->form_validation->set_message('required', '%s Tidak Boleh Kosong');
     $this->form_validation->set_message('numeric', '%s Harus Di isi dengan angka');
 
     if ($this->form_validation->run() != TRUE) {
-      return $this->load->view('inputcustomer');
+      $this->session->set_flashdata('gagal', '<div class="alert alert-danger" role="alert">
+   Pastikan Form terisi dengan Benar
+     </div>');
+      redirect(base_url('beranda/detail_keluar'));
     }
 
+    $idtransaksi = $this->input->post('idtransaksi', TRUE);
+    $kodebarang  = $this->input->post('kodebarang', TRUE);
+    $namabarang  = $this->input->post('namabarang', TRUE);
+    $satuan       = $this->input->post('satuan', TRUE);
+    $stok       = $this->input->post('stok', TRUE);
+    $jumlah       = $this->input->post('jumlah', TRUE);
+
+    $data = array(
+      'idtransaksi' => $idtransaksi,
+      'kodebarang'  => $kodebarang,
+      'namabarang'  => $namabarang,
+      'satuan'       => $satuan,
+      'stok'       => $stok,
+      'jumlah'       => $jumlah
+    );
+    if ($jumlah <= 0) {
+      $this->session->set_flashdata('Stoksalah', '<div class="alert alert-danger" role="alert">
+     Jumlah Keluar Belum Diisi </div>');
+      $where = array('idtransaksi' => $idtransaksi);
+      $data['list_data2'] = $this->M_admin->select('databarang');
+      $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
+      $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
+                                             FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
+                                             WHERE barangkeluar.idtransaksi='$idtransaksi' 
+                                             ")->result_array();
+
+      $this->load->view('detailkeluar', $data);
+      $this->load->view('modal_form_keluar', $data);
+      $this->load->view('modal', $data);
+    }
+    if ($stok >= $jumlah) {
+      $this->M_admin->insert('barangkeluar', $data);
+      $this->session->set_flashdata('berhasilkeluar', '<div class="alert alert-success" role="alert">
+     Barang Berhasil Dikeluarkan </div>');
+      $where = array('idtransaksi' => $idtransaksi);
+      $data['list_data2'] = $this->M_admin->select('databarang');
+      $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
+      $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
+                                             FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
+                                             WHERE barangkeluar.idtransaksi='$idtransaksi' 
+                                             ")->result_array();
+
+      $this->load->view('detailkeluar', $data);
+      $this->load->view('modal_form_keluar', $data);
+      $this->load->view('modal', $data);
+    } else {
+      $this->session->set_flashdata('Stokkurang', '<div class="alert alert-danger" role="alert">
+     Stok Tidak mencukupi </div>');
+      $where = array('idtransaksi' => $idtransaksi);
+      $data['list_data2'] = $this->M_admin->select('databarang');
+      $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
+      $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
+                                             FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
+                                             WHERE barangkeluar.idtransaksi='$idtransaksi' 
+                                             ")->result_array();
+
+      $this->load->view('detailkeluar', $data);
+      $this->load->view('modal_form_keluar', $data);
+      $this->load->view('modal', $data);
+    }
+  }
+
+  public function submitcustomer()
+  {
+    $this->load->model('M_admin');
+   
     $namacustomer  = $this->input->post('namacustomer', TRUE);
     $alamat  = $this->input->post('alamat', TRUE);
     $telepon     = $this->input->post('telepon', TRUE);
@@ -453,19 +434,6 @@ class Beranda extends CI_Controller
   public function submitsupplier()
   {
     $this->load->model('M_admin');
-    $this->load->library('form_validation');
-
-    //rules
-    $this->form_validation->set_rules('namasupplier', 'Nama Supplier', 'required');
-    $this->form_validation->set_rules('alamat', 'Alamat', 'required');
-    $this->form_validation->set_rules('telepon', 'Nomor Telepon', 'required|numeric');
-
-    $this->form_validation->set_message('required', '%s Tidak Boleh Kosong');
-    $this->form_validation->set_message('numeric', '%s Harus Di isi dengan angka');
-
-    if ($this->form_validation->run() != TRUE) {
-      return $this->load->view('inputsupplier');
-    }
 
     $namasupplier  = $this->input->post('namasupplier', TRUE);
     $alamat  = $this->input->post('alamat', TRUE);
@@ -478,26 +446,12 @@ class Beranda extends CI_Controller
     );
     $this->M_admin->insert('datasupplier', $data);
     $this->session->set_flashdata('berhasiltambahsupplier', '<div class="alert alert-success" role="alert">
-    Data Berhasil Ditambahkan
-  </div>');
+    Data Berhasil Ditambahkan </div>');
     redirect(base_url('beranda/inputsupplier'));
   }
   public function submitbarangbaru()
   {
     $this->load->model('M_admin');
-    $this->load->library('form_validation');
-
-    //rules
-    $this->form_validation->set_rules('kodebarang', 'Kode Barang', 'required|numeric');
-    $this->form_validation->set_rules('namabarang', 'Nama Barang', 'required');
-    $this->form_validation->set_rules('satuan', 'Satuan', 'required');
-
-    $this->form_validation->set_message('required', '%s Tidak Boleh Kosong');
-    $this->form_validation->set_message('numeric', '%s Harus Di isi dengan angka');
-
-    if ($this->form_validation->run() != TRUE) {
-      return $this->load->view('V_databarang');
-    }
 
     $conn = mysqli_connect('localhost', 'root', '', 'dbinventory');
     $kodebarang = ['kodebarang'];
@@ -519,14 +473,10 @@ class Beranda extends CI_Controller
     $cek =  $this->M_admin->cek_kode('databarang', $kodebarang);
     if ($cek->num_rows() != 1) {
       $this->M_admin->insert('databarang', $data);
-      $this->session->set_flashdata('berhasiltambah', '<div class="alert alert-success" role="alert">
-    Barang Berhasil Ditambahkan
-  </div>');
+      $this->session->set_flashdata('berhasiltambah', '<div class="alert alert-success" role="alert"> Barang Berhasil Ditambahkan </div>');
       redirect(base_url('beranda/inputbarang'));
     } else {
-      $this->session->set_flashdata('gagaltambah', '<div class="alert alert-danger" role="alert">
-    Kode Barang Sudah Ada
-  </div>');
+      $this->session->set_flashdata('gagaltambah', '<div class="alert alert-danger" role="alert"> Kode Barang Sudah Ada </div>');
       redirect(base_url('beranda/inputbarang'));
     }
   }
@@ -563,14 +513,14 @@ class Beranda extends CI_Controller
   {
     $this->load->model('M_admin');
     $where = array('idtransaksi' => $idtransaksi);
-    
+
     $data['list_data2'] = $this->M_admin->select('databarang');
     $data['list_data1'] = $this->M_admin->get_data('datamasuk', $where);
     $data['detail'] = $this->db->query("SELECT barangmasuk.id,barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlah
                                             FROM barangmasuk LEFT JOIN datamasuk ON datamasuk.idtransaksi=barangmasuk.idtransaksi
                                             WHERE barangmasuk.idtransaksi='$idtransaksi' 
                                             ")->result_array();
-    
+
     $this->load->view('detailmasuk', $data);
     $this->load->view('modal_form', $data);
     $this->load->view('modal', $data);
@@ -579,14 +529,14 @@ class Beranda extends CI_Controller
   {
     $this->load->model('M_admin');
     $where = array('idtransaksi' => $idtransaksi);
-    
+
     $data['list_data2'] = $this->M_admin->select('databarang');
     $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
     $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
                                             FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
                                             WHERE barangkeluar.idtransaksi='$idtransaksi' 
                                             ")->result_array();
-    
+
     $this->load->view('detailkeluar', $data);
     $this->load->view('modal_form_keluar', $data);
     $this->load->view('modal', $data);
@@ -608,8 +558,7 @@ class Beranda extends CI_Controller
 
     if ($this->form_validation->run() != TRUE) {
       $this->session->set_flashdata('pesangagal', '<div class="alert alert-danger" role="alert">
-      Kolom Tidak Di Isi Dengan benar / Tidak Terisi
-    </div>');
+      Kolom Tidak Di Isi Dengan benar / Tidak Terisi </div>');
       redirect(base_url('beranda/laporandatabarang'));
     }
     $kodebarang  = $this->input->post('kodebarang', TRUE);
@@ -627,8 +576,7 @@ class Beranda extends CI_Controller
     );
     $this->M_admin->update('databarang', $data, $where);
     $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
-      Data Berhasil di Update
-    </div>');
+      Data Berhasil di Update </div>');
     redirect(base_url('beranda/laporandatabarang'));
   }
   function prosesupdatedatacustomer()
@@ -646,8 +594,7 @@ class Beranda extends CI_Controller
 
     if ($this->form_validation->run() != TRUE) {
       $this->session->set_flashdata('pesangagal', '<div class="alert alert-danger" role="alert">
-      Kolom Tidak Di Isi Dengan benar / Tidak Terisi
-    </div>');
+      Kolom Tidak Di Isi Dengan benar / Tidak Terisi </div>');
       redirect(base_url('beranda/datacustomer'));
     }
     $id  = $this->input->post('id', TRUE);
@@ -663,9 +610,7 @@ class Beranda extends CI_Controller
       'telepon'       => $telepon
     );
     $this->M_admin->update('datacustomer', $data, $where);
-    $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
-      Data Berhasil di Update
-    </div>');
+    $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"> Data Berhasil di Update </div>');
     redirect(base_url('beranda/datacustomer'));
   }
   function prosesupdatedatasupplier()
@@ -705,42 +650,6 @@ class Beranda extends CI_Controller
       Data Berhasil di Update
     </div>');
     redirect(base_url('beranda/datasupplier'));
-  }
-  function proses_update_barang_masuk()
-  {
-    $this->load->model('M_admin');
-    $this->load->library('form_validation');
-
-    //rules
-    $this->form_validation->set_rules('lokasi', 'Lokasi', 'required');
-    $this->form_validation->set_rules('kode_barang', 'Kode Barang', 'required');
-    $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required');
-    $this->form_validation->set_rules('jumlah', 'Jumlah', 'required');
-
-    if ($this->form_validation->run() == TRUE) {
-    }
-    $idtransaksi = $this->input->post('idtransaksi', TRUE);
-    $tanggal      = $this->input->post('tanggal', TRUE);
-    $lokasi       = $this->input->post('lokasi', TRUE);
-    $kode_barang  = $this->input->post('kodebarang', TRUE);
-    $nama_barang  = $this->input->post('namabarang', TRUE);
-    $satuan       = $this->input->post('satuan', TRUE);
-    $jumlah       = $this->input->post('jumlah', TRUE);
-
-    $where = array('id' => $id);
-    $data = array(
-      'kodebarang'  => $kodebarang,
-      'namabarang'  => $namabarang,
-      'satuan'       => $satuan,
-      'jumlah'       => $jumlah
-
-    );
-
-    $this->M_admin->updatemasuk('id', $where, $data);
-    $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
-      Data Berhasil di Update
-    </div>');
-    redirect(base_url('beranda/laporanbarangmasuk'));
   }
   public function proses_new_password()
   {
@@ -784,7 +693,7 @@ class Beranda extends CI_Controller
   }
   public function token_generate()
   {
-    return $tokens = md5(uniqid(rand(), true));
+    return $tokens = md5(uniqid(true));
   }
   public function users()
   {
@@ -850,14 +759,10 @@ class Beranda extends CI_Controller
         $cek =  $this->M_admin->cek_users('users', $username);
         if ($cek->num_rows() != 1) {
           $this->M_admin->insert('users', $data);
-          $this->session->set_flashdata('msg_berhasil', '<div class="alert alert-success" role="alert">
-  User Berhasil Ditambahkan
-</div>');
+          $this->session->set_flashdata('msg_berhasil', '<div class="alert alert-success" role="alert"> User Berhasil Ditambahkan </div>');
           redirect(base_url('beranda/Users'));
         } else {
-          $this->session->set_flashdata('gagaltambah', '<div class="alert alert-danger" role="alert">
-  Username Sudah Ada
-</div>');
+          $this->session->set_flashdata('gagaltambah', '<div class="alert alert-danger" role="alert"> Username Sudah Ada </div>');
           redirect(base_url('beranda/users'));
         }
       }
@@ -895,14 +800,10 @@ class Beranda extends CI_Controller
         'role'         => $role,
       );
       $this->M_admin->update('users', $data, $where);
-      $this->session->set_flashdata('userberhasil', '<div class="alert alert-success" role="alert">
-        Data Berhasil di Update
-      </div>');
+      $this->session->set_flashdata('userberhasil', '<div class="alert alert-success" role="alert"> Data Berhasil di Update </div>');
       redirect(base_url('Beranda/users'));
     } else {
-      $this->session->set_flashdata('usergagal', '<div class="alert alert-danger" role="alert">
-        Ada Kesalahan
-      </div>');
+      $this->session->set_flashdata('usergagal', '<div class="alert alert-danger" role="alert"> Ada Kesalahan </div>');
       redirect(base_url('Beranda/users'));
     }
   }
