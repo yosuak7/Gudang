@@ -13,52 +13,66 @@ class Beranda extends CI_Controller
       $this->load->view('V_beranda', $data);
       $this->load->view('Sidebar');
     } else {
-      $this->load->view('login/login');
+      redirect(base_url('Login'));
     }
   }
-
 
   public function barangmasuk()
   {
 
     $this->load->model('M_admin');
-    $data = array(
-      'list_data' => $this->M_admin->select('datamasuk')
-    );
-    $this->load->view('daftarbarangmasuk', $data);
-    $this->load->view('Modal', $data);
-    $this->load->view('Sidebar');
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $data = array(
+        'list_data' => $this->M_admin->select('datamasuk')
+      );
+      $this->load->view('daftarbarangmasuk', $data);
+      $this->load->view('Modal', $data);
+      $this->load->view('Sidebar');
+    } else {
+      redirect(base_url('Login'));
+    }
   }
   public function barangkeluar()
   {
 
     $this->load->model('M_admin');
-    $data = array(
-      'list_data' => $this->M_admin->select('datakeluar')
-    );
-    $this->load->view('daftarbarangkeluar', $data);
-    $this->load->view('Modal', $data);
-    $this->load->view('Sidebar');
-  }
-  public function inputkeluar()
-  {
-
-    $this->load->view('V_Formbarangkeluar');
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $data = array(
+        'list_data' => $this->M_admin->select('datakeluar')
+      );
+      $this->load->view('daftarbarangkeluar', $data);
+      $this->load->view('Modal', $data);
+      $this->load->view('Sidebar');
+    } else {
+      redirect(base_url('Login'));
+    }
   }
   public function inputbarang()
   {
-
-    $this->load->view('V_Databarang');
+    $this->load->model('M_admin');
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $this->load->view('V_Databarang');
+    } else {
+      redirect(base_url('Login'));
+    }
   }
   public function inputcustomer()
   {
-
-    $this->load->view('inputcustomer');
+    $this->load->model('M_admin');
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $this->load->view('inputcustomer');
+    } else {
+      redirect(base_url('Login'));
+    }
   }
   public function inputsupplier()
   {
-
-    $this->load->view('inputsupplier');
+    $this->load->model('M_admin');
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $this->load->view('inputsupplier');
+    } else {
+      redirect(base_url('Login'));
+    }
   }
   public function randomstring()
   {
@@ -67,43 +81,40 @@ class Beranda extends CI_Controller
   public function laporandatabarang()
   {
     $this->load->model('M_admin');
-    $data = array(
-      'list_data' => $this->M_admin->select('databarang')
-    );
-    $this->load->view('V_Ldatabarang', $data);
-    $this->load->view('Sidebar');
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $data = array(
+        'list_data' => $this->M_admin->select('databarang')
+      );
+      $this->load->view('V_Ldatabarang', $data);
+      $this->load->view('Sidebar');
+    } else {
+      redirect(base_url('Login'));
+    }
   }
-  public function laporanbarangkeluar()
-  {
-    $this->load->model('M_admin');
-    $data = array(
-      'list_data' => $this->M_admin->select('barangkeluar')
-    );
-    $this->load->view('V_Lbarangkeluar', $data);
-  }
-  public function laporanbarangmasuk()
-  {
-    $this->load->model('M_admin');
-    $data = array(
-      'list_data' => $this->M_admin->select('barangmasuk')
-    );
-    $this->load->view('V_Lbarangmasuk', $data);
-  }
+
   public function datacustomer()
   {
     $this->load->model('M_admin');
-    $data = array(
-      'list_data' => $this->M_admin->select('datacustomer')
-    );
-    $this->load->view('datacustomer', $data);
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $data = array(
+        'list_data' => $this->M_admin->select('datacustomer')
+      );
+      $this->load->view('datacustomer', $data);
+    } else {
+      redirect(base_url('Login'));
+    }
   }
   public function datasupplier()
   {
     $this->load->model('M_admin');
-    $data = array(
-      'list_data' => $this->M_admin->select('datasupplier')
-    );
-    $this->load->view('datasupplier', $data);
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $data = array(
+        'list_data' => $this->M_admin->select('datasupplier')
+      );
+      $this->load->view('datasupplier', $data);
+    } else {
+      redirect(base_url('Login'));
+    }
   }
   public function delete_barang($id)
   {
@@ -415,7 +426,7 @@ class Beranda extends CI_Controller
   public function submitcustomer()
   {
     $this->load->model('M_admin');
-   
+
     $namacustomer  = $this->input->post('namacustomer', TRUE);
     $alamat  = $this->input->post('alamat', TRUE);
     $telepon     = $this->input->post('telepon', TRUE);
@@ -480,66 +491,72 @@ class Beranda extends CI_Controller
       redirect(base_url('beranda/inputbarang'));
     }
   }
-  public function masuk_data_barang($kodebarang = 0)
-  {
-    $this->load->model('M_admin');
-    $data = array(
-      'list_data1' => $this->M_admin->select('datasupplier')
-    );
-    $where = array('kodebarang' => $kodebarang);
-    $data['list_data'] = $this->M_admin->get_data('databarang', $where);
-    $this->load->view('V_Formbarangmasuk', $data);
-  }
   public function datamasuk()
   {
     $this->load->model('M_admin');
-    $data = array(
-      'list_data1' => $this->M_admin->select('datasupplier')
-    );
-    $this->load->view('V_Formdatamasuk', $data);
-    $this->load->view('Modal');
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $data = array(
+        'list_data1' => $this->M_admin->select('datasupplier')
+      );
+      $this->load->view('V_Formdatamasuk', $data);
+      $this->load->view('Modal');
+    } else {
+      redirect(base_url("Login"));
+    }
   }
   public function datakeluar()
   {
     $this->load->model('M_admin');
-    $data = array(
-      'list_data' => $this->M_admin->select('datacustomer')
-    );
-    $this->load->view('V_Formdatakeluar', $data);
-    $this->load->view('Modal');
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $data = array(
+        'list_data' => $this->M_admin->select('datacustomer')
+      );
+      $this->load->view('V_Formdatakeluar', $data);
+      $this->load->view('Modal');
+    } else {
+      redirect(base_url("Login"));
+    }
   }
 
   public function detail_masuk($idtransaksi)
   {
     $this->load->model('M_admin');
-    $where = array('idtransaksi' => $idtransaksi);
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $where = array('idtransaksi' => $idtransaksi);
 
-    $data['list_data2'] = $this->M_admin->select('databarang');
-    $data['list_data1'] = $this->M_admin->get_data('datamasuk', $where);
-    $data['detail'] = $this->db->query("SELECT barangmasuk.id,barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlah
+      $data['list_data2'] = $this->M_admin->select('databarang');
+      $data['list_data1'] = $this->M_admin->get_data('datamasuk', $where);
+      $data['detail'] = $this->db->query("SELECT barangmasuk.id,barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlah
                                             FROM barangmasuk LEFT JOIN datamasuk ON datamasuk.idtransaksi=barangmasuk.idtransaksi
                                             WHERE barangmasuk.idtransaksi='$idtransaksi' 
                                             ")->result_array();
 
-    $this->load->view('detailmasuk', $data);
-    $this->load->view('modal_form', $data);
-    $this->load->view('modal', $data);
+      $this->load->view('detailmasuk', $data);
+      $this->load->view('modal_form', $data);
+      $this->load->view('modal', $data);
+    } else {
+      redirect(base_url("Login"));
+    }
   }
   public function detail_keluar($idtransaksi)
   {
     $this->load->model('M_admin');
-    $where = array('idtransaksi' => $idtransaksi);
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $where = array('idtransaksi' => $idtransaksi);
 
-    $data['list_data2'] = $this->M_admin->select('databarang');
-    $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
-    $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
+      $data['list_data2'] = $this->M_admin->select('databarang');
+      $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
+      $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
                                             FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
                                             WHERE barangkeluar.idtransaksi='$idtransaksi' 
                                             ")->result_array();
 
-    $this->load->view('detailkeluar', $data);
-    $this->load->view('modal_form_keluar', $data);
-    $this->load->view('modal', $data);
+      $this->load->view('detailkeluar', $data);
+      $this->load->view('modal_form_keluar', $data);
+      $this->load->view('modal', $data);
+    } else {
+      redirect(base_url("Login"));
+    }
   }
 
   function prosesupdatedatabarang()
@@ -687,9 +704,13 @@ class Beranda extends CI_Controller
   }
   public function profile()
   {
-    $data['token_generate'] = $this->token_generate();
-    $this->session->set_userdata($data);
-    $this->load->view('profile', $data);
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $data['token_generate'] = $this->token_generate();
+      $this->session->set_userdata($data);
+      $this->load->view('profile', $data);
+    } else {
+      redirect(base_url("Login"));
+    }
   }
   public function token_generate()
   {
@@ -698,11 +719,15 @@ class Beranda extends CI_Controller
   public function users()
   {
     $this->load->model('M_admin');
-    $data['list_users'] = $this->M_admin->kecuali('users', $this->session->userdata('name'));
-    $data['token_generate'] = $this->token_generate();
-    $this->session->set_userdata($data);
-    $this->load->view('V_users', $data);
-    $this->load->view('ModalUser');
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $data['list_users'] = $this->M_admin->kecuali('users', $this->session->userdata('name'));
+      $data['token_generate'] = $this->token_generate();
+      $this->session->set_userdata($data);
+      $this->load->view('V_users', $data);
+      $this->load->view('ModalUser');
+    } else {
+      redirect(base_url("Login"));
+    }
   }
   public function proses_delete_user()
   {
@@ -808,3 +833,4 @@ class Beranda extends CI_Controller
     }
   }
 }
+?>
