@@ -18,7 +18,7 @@
                                     foreach ($list_data as $dd) { ?>
                                         <div class="box-body">
                                             <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" href="<?= base_url('beranda/laporandatabarang') ?>" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
-                                            <a type="text" class="bordered" style=" text-align: center;width:10%;margin-center:20%">
+                                            <a type="text" class="bordered" style=" text-align: center;width:10%;">
                                                 <h3>Detail Stok <?php echo $dd->namabarang; ?></h3>
                                             </a>
                                         </div>
