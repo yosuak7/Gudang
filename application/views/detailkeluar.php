@@ -20,10 +20,10 @@
                                 <?php echo $this->session->flashdata('Stoksalah'); ?>
                                 <?php echo $this->session->flashdata('berhasildelete'); ?>
                                 <div class="box-header with-border">
-                                <?php
-                                                foreach ($list_data1 as $dd) { ?>
-                                <a href="<?= base_url('laporan/printbarangkeluar/' . $dd->idtransaksi); ?>" class="btn btn-info mb-3"><i class="fa fa-print"></i> Print</a>
-                                <?php } ?>
+                                    <?php
+                                    foreach ($list_data1 as $dd) { ?>
+                                        <a target ="_blank" href="<?= base_url('laporan/printbarangkeluar/' . $dd->idtransaksi); ?>" class="btn btn-info mb-3"><i class="fa fa-print"></i> Print</a>
+                                    <?php } ?>
                                     <h5 class="box-title"><i class="fa fa-archive" aria-hidden="true"></i> Tambah Barang Keluar</h5>
                                 </div>
                                 <!-- /.box-header -->
@@ -70,11 +70,11 @@
                                             <tr>
 
                                                 <?php foreach ($detail as $dd) { ?>
-                                                    <td><?= $dd['kodebarang']; ?></td> 
+                                                    <td><?= $dd['kodebarang']; ?></td>
                                                     <td><?= $dd['namabarang']; ?></td>
-                                                    <td><?= $dd['jumlah']; ?></td>
+                                                    <td><?= $dd['jumlahkeluar']; ?></td>
                                                     <td><?= $dd['satuan']; ?></td>
-                                                    <td><a type="button" class="btn btn-danger btn-delete" href="<?= base_url('beranda/delete_barang_keluar/' .  $dd['id']) ?>" id="buttondelete" style="margin:auto;height:20%"><i class="fa fa-trash" aria-hidden="true"></a></td>
+                                                    <td><a type="button" class="btn btn-danger btn-delete" href="<?= base_url('beranda/delete_barang_keluar/' .  $dd['kodeid']) ?>" id="buttondelete" style="margin:auto;height:20%"><i class="fa fa-trash" aria-hidden="true"></a></td>
                                             </tr>
                                         <?php } ?>
                                         </tbody>
@@ -119,8 +119,8 @@
                         'autoWidth': false
                     })
                 });
-                
-                $(document).on("click", "#buttonpilihbarangkeluar", function() { 
+
+                $(document).on("click", "#buttonpilihbarangkeluar", function() {
 
                     var kodebarang12 = $(this).data('kodebarang');
                     var namabarang12 = $(this).data('namabarang');

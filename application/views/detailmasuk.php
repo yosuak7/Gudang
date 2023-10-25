@@ -18,10 +18,10 @@
                                 <?php echo $this->session->flashdata('gagal'); ?>
                                 <?php echo $this->session->flashdata('berhasildelete'); ?>
                                 <div class="box-header with-border">
-                                <?php
-                                                foreach ($list_data1 as $dd) { ?>
-                                <a href="<?= base_url('laporan/printbarangmasuk/' . $dd->idtransaksi); ?>" class="btn btn-info mb-3"><i class="fa fa-print"></i> Print</a>
-                                <?php } ?>
+                                    <?php
+                                    foreach ($list_data1 as $dd) { ?>
+                                        <a target= "_blank" href="<?= base_url('laporan/printbarangmasuk/' . $dd->idtransaksi); ?>" class="btn btn-info mb-3"><i class="fa fa-print"></i> Print</a>
+                                    <?php } ?>
                                     <h5 class="box-title"><i class="fa fa-archive" aria-hidden="true"></i> Tambah Barang Masuk</h5>
                                 </div>
                                 <!-- /.box-header -->
@@ -71,9 +71,9 @@
                                                 <?php foreach ($detail as $dd) { ?>
                                                     <td><?= $dd['kodebarang']; ?></td>
                                                     <td><?= $dd['namabarang']; ?></td>
-                                                    <td><?= $dd['jumlah']; ?></td>
+                                                    <td><?= $dd['jumlahmasuk']; ?></td>
                                                     <td><?= $dd['satuan']; ?></td>
-                                                    <td><a type="button" class="btn btn-danger btn-delete" href="<?= base_url('beranda/delete_barang_masuk/' .  $dd['id']) ?>" id="buttondelete" style="margin:auto;height:20%"><i class="fa fa-trash" aria-hidden="true"></a></td>
+                                                    <td><a type="button" class="btn btn-danger btn-delete" href="<?= base_url('beranda/delete_barang_masuk/' .  $dd['kodeid']) ?>" id="buttondelete" style="margin:auto;height:20%"><i class="fa fa-trash" aria-hidden="true"></a></td>
                                             </tr>
 
 
@@ -93,7 +93,7 @@
                                         </tfoot>
                                     </table>
                                     <div class="box-footer" style="width:93%;">
-                                        <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" href="<?= base_url('beranda/barangmasuk') ?>"  name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
+                                        <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" href="<?= base_url('beranda/barangmasuk') ?>" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
                                     </div>
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@
             <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
             <script src="<?php echo base_url() ?>assets/sweetalert/dist/sweetalert.min.js"></script>
-            
+
             <script>
                 $(function() {
                     $('#example1').DataTable();

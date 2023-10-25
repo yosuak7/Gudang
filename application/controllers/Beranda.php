@@ -133,6 +133,7 @@ class Beranda extends CI_Controller
     $where = array('idtransaksi' => $idtransaksi);
     $this->M_admin->delete('datamasuk', $where);
     $this->M_admin->delete('barangmasuk', $where);
+    $this->M_admin->delete('transaksi', $where);
 
     $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success" role="alert">
     Data Berhasil di Hapus
@@ -145,6 +146,7 @@ class Beranda extends CI_Controller
     $where = array('idtransaksi' => $idtransaksi);
     $this->M_admin->delete('datakeluar', $where);
     $this->M_admin->delete('barangkeluar', $where);
+    $this->M_admin->delete('transaksi', $where);
 
     $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success" role="alert">
     Data Berhasil di Hapus
@@ -172,39 +174,47 @@ class Beranda extends CI_Controller
     redirect(base_url('beranda/datasupplier'));
   }
 
-  public function delete_barang_keluar($id)
+  public function delete_barang_keluar($kodeid)
   {
     $this->load->model('M_admin');
-    $where = array('id' => $id);
+    $idtransaksi = 0;
+    $where = array('kodeid' => $kodeid);
     $this->M_admin->delete('barangkeluar', $where);
+    $this->M_admin->delete('transaksi', $where);
     $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success" role="alert">
     Data Berhasil di Hapus
       </div>');
-    $idtransaksi = 0;
-    $idtransaksi = $this->db->query("SELECT barangmasuk.id, barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlah
-      FROM barangmasuk LEFT JOIN datamasuk ON datamasuk.idtransaksi=barangmasuk.idtransaksi
-      WHERE barangmasuk.idtransaksi='$idtransaksi' 
-      ")->result_array();
-    return (site_url('beranda/detail_keluar', $idtransaksi));
-  }
+    $where = array('idtransaksi' => $idtransaksi);
 
-  public function delete_barang_masuk($id)
+    $data['list_data2'] = $this->M_admin->select('databarang');
+    $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
+    $data['detail'] = $this->db->query("SELECT barangkeluar.kodeid,barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlahkeluar, barangkeluar.stok
+                                            FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
+                                            WHERE barangkeluar.idtransaksi='$idtransaksi' 
+                                            ")->result_array();
+
+    $this->load->view('detailkeluar', $data);
+    $this->load->view('modal_form_keluar', $data);
+    $this->load->view('modal', $data);
+  }
+  public function delete_barang_masuk($kodeid)
   {
     $this->load->model('M_admin');
     $idtransaksi = 0;
-    $where1 = array('id' => $id);
+    $where1 = array('kodeid' => $kodeid);
 
     $this->M_admin->delete('barangmasuk', $where1);
+    $this->M_admin->delete('transaksi', $where1);
     $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success" role="alert"> Data Berhasil di Hapus </div>');
     $where = array('idtransaksi' => $idtransaksi);
 
     $data['list_data2'] = $this->M_admin->select('databarang');
     $data['list_data1'] = $this->M_admin->get_data('datamasuk', $where);
-    $data['detail'] = $this->db->query("SELECT barangmasuk.id, barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlah
+    $data['detail'] = $this->db->query("SELECT barangmasuk.id, barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlahmasuk
                                               FROM barangmasuk LEFT JOIN datamasuk ON datamasuk.idtransaksi=barangmasuk.idtransaksi
                                               WHERE barangmasuk.idtransaksi='$idtransaksi' 
                                               ")->result_array();
-    redirect(base_url('beranda/detail_keluar', $data));
+    redirect(base_url('beranda/detail_masuk', $data));
   }
   function submitbarangmasuk($idtransaksi = 0)
   {
@@ -214,7 +224,7 @@ class Beranda extends CI_Controller
     //rules
     $this->form_validation->set_rules('idtransaksi', 'idtransaksi', 'required');
     $this->form_validation->set_rules('kodebarang', 'Kode Barang', 'required|numeric');
-    $this->form_validation->set_rules('jumlah', 'Jumlah', 'required');
+    $this->form_validation->set_rules('jumlahmasuk', 'Jumlahmasuk', 'required');
     $this->form_validation->set_rules('namabarang', 'Nama Barang', 'required');
     $this->form_validation->set_rules('satuan', 'Satuan', 'required');
 
@@ -228,32 +238,41 @@ class Beranda extends CI_Controller
       </div>');
       redirect(base_url('beranda/detail_masuk'));
     }
+    $kodeid = $this->input->post('kodeid', TRUE);
+    $tanggal = $this->input->post('tanggal', TRUE);
+    $keterangan  = $this->input->post('keterangan', TRUE);
     $idtransaksi = $this->input->post('idtransaksi', TRUE);
     $kodebarang  = $this->input->post('kodebarang', TRUE);
     $namabarang  = $this->input->post('namabarang', TRUE);
-    $jumlah       = $this->input->post('jumlah', TRUE);
+    $jumlahmasuk      = $this->input->post('jumlahmasuk', TRUE);
     $satuan       = $this->input->post('satuan', TRUE);
+    $stok       = $this->input->post('stok', TRUE);
 
     $data = array(
+      'kodeid' => $kodeid,
+      'tanggal' => $tanggal,
+      'keterangan'  => $keterangan,
       'idtransaksi' => $idtransaksi,
       'kodebarang'  => $kodebarang,
       'namabarang'  => $namabarang,
+      'stok'       => 0,
       'satuan'       => $satuan,
-      'jumlah'       => $jumlah
+      'jumlahmasuk'       => $jumlahmasuk
 
     );
-    if ($jumlah <= 0) {
+    if ($jumlahmasuk <= 0) {
       $this->session->set_flashdata('masuksalah1', '<div class="alert alert-danger" role="alert">
       Jumlah Masuk Belum Diisi </div>');
     } else {
       $this->M_admin->insert('barangmasuk', $data);
+      $this->M_admin->insert('transaksi', $data);
       $this->session->set_flashdata('berhasilmasuk', '<div class="alert alert-success" role="alert">
       Barang Berhasil Dimasukkan </div>');
       $where = array('idtransaksi' => $idtransaksi);
 
       $data['list_data2'] = $this->M_admin->select('databarang');
       $data['list_data1'] = $this->M_admin->get_data('datamasuk', $where);
-      $data['detail'] = $this->db->query("SELECT barangmasuk.id, barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlah
+      $data['detail'] = $this->db->query("SELECT barangmasuk.id, barangmasuk.kodeid,barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlahmasuk
                                               FROM barangmasuk LEFT JOIN datamasuk ON datamasuk.idtransaksi=barangmasuk.idtransaksi
                                               WHERE barangmasuk.idtransaksi='$idtransaksi' 
                                               ")->result_array();
@@ -348,7 +367,7 @@ class Beranda extends CI_Controller
     $this->form_validation->set_rules('idtransaksi', 'idtransaksi', 'required');
     $this->form_validation->set_rules('kodebarang', 'Kode Barang', 'required|numeric');
     $this->form_validation->set_rules('namabarang', 'Nama Barang', 'required');
-    $this->form_validation->set_rules('jumlah', 'Jumlah', 'required|numeric');
+    $this->form_validation->set_rules('jumlahkeluar', 'Jumlahkeluar', 'required|numeric');
     $this->form_validation->set_rules('satuan', 'Satuan', 'required');
     $this->form_validation->set_rules('stok', 'Stok', 'required');
     $this->form_validation->set_message('required', '%s Tidak Boleh Kosong');
@@ -360,29 +379,35 @@ class Beranda extends CI_Controller
      </div>');
       redirect(base_url('beranda/detail_keluar'));
     }
-
+    $kodeid = $this->input->post('kodeid', TRUE);
+    $tanggal  = $this->input->post('tanggal', TRUE);
+    $keterangan  = $this->input->post('keterangan', TRUE);
     $idtransaksi = $this->input->post('idtransaksi', TRUE);
     $kodebarang  = $this->input->post('kodebarang', TRUE);
     $namabarang  = $this->input->post('namabarang', TRUE);
     $satuan       = $this->input->post('satuan', TRUE);
     $stok       = $this->input->post('stok', TRUE);
-    $jumlah       = $this->input->post('jumlah', TRUE);
+    $jumlahkeluar      = $this->input->post('jumlahkeluar', TRUE);
 
     $data = array(
+      'kodeid' => $kodeid,
+      'tanggal'  => $tanggal,
+      'keterangan'  => $keterangan,
       'idtransaksi' => $idtransaksi,
       'kodebarang'  => $kodebarang,
       'namabarang'  => $namabarang,
       'satuan'       => $satuan,
       'stok'       => $stok,
-      'jumlah'       => $jumlah
+      'jumlahkeluar'       => $jumlahkeluar,
+      'jumlahmasuk' => 0
     );
-    if ($jumlah <= 0) {
+    if ($jumlahkeluar <= 0) {
       $this->session->set_flashdata('Stoksalah', '<div class="alert alert-danger" role="alert">
      Jumlah Keluar Belum Diisi </div>');
       $where = array('idtransaksi' => $idtransaksi);
       $data['list_data2'] = $this->M_admin->select('databarang');
       $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
-      $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
+      $data['detail'] = $this->db->query("SELECT barangkeluar.kodeid,barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlahkeluar, barangkeluar.stok
                                              FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
                                              WHERE barangkeluar.idtransaksi='$idtransaksi' 
                                              ")->result_array();
@@ -391,14 +416,15 @@ class Beranda extends CI_Controller
       $this->load->view('modal_form_keluar', $data);
       $this->load->view('modal', $data);
     }
-    if ($stok >= $jumlah) {
+    if ($stok >= $jumlahkeluar) {
       $this->M_admin->insert('barangkeluar', $data);
+      $this->M_admin->insert('transaksi', $data);
       $this->session->set_flashdata('berhasilkeluar', '<div class="alert alert-success" role="alert">
      Barang Berhasil Dikeluarkan </div>');
       $where = array('idtransaksi' => $idtransaksi);
       $data['list_data2'] = $this->M_admin->select('databarang');
       $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
-      $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
+      $data['detail'] = $this->db->query("SELECT barangkeluar.kodeid,barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlahkeluar, barangkeluar.stok
                                              FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
                                              WHERE barangkeluar.idtransaksi='$idtransaksi' 
                                              ")->result_array();
@@ -412,7 +438,7 @@ class Beranda extends CI_Controller
       $where = array('idtransaksi' => $idtransaksi);
       $data['list_data2'] = $this->M_admin->select('databarang');
       $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
-      $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
+      $data['detail'] = $this->db->query("SELECT barangkeluar.kodeid,barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlahkeluar, barangkeluar.stok
                                              FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
                                              WHERE barangkeluar.idtransaksi='$idtransaksi' 
                                              ")->result_array();
@@ -526,7 +552,7 @@ class Beranda extends CI_Controller
 
       $data['list_data2'] = $this->M_admin->select('databarang');
       $data['list_data1'] = $this->M_admin->get_data('datamasuk', $where);
-      $data['detail'] = $this->db->query("SELECT barangmasuk.id,barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlah
+      $data['detail'] = $this->db->query("SELECT barangmasuk.id,barangmasuk.kodeid,barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlahmasuk
                                             FROM barangmasuk LEFT JOIN datamasuk ON datamasuk.idtransaksi=barangmasuk.idtransaksi
                                             WHERE barangmasuk.idtransaksi='$idtransaksi' 
                                             ")->result_array();
@@ -546,7 +572,7 @@ class Beranda extends CI_Controller
 
       $data['list_data2'] = $this->M_admin->select('databarang');
       $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
-      $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
+      $data['detail'] = $this->db->query("SELECT barangkeluar.kodeid,barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlahkeluar, barangkeluar.stok
                                             FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
                                             WHERE barangkeluar.idtransaksi='$idtransaksi' 
                                             ")->result_array();
@@ -803,6 +829,23 @@ class Beranda extends CI_Controller
     session_destroy();
     $this->load->view('login');
   }
+  public function detail_stok($kodebarang)
+  {
+    $this->load->model('M_admin');
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $where = array('kodebarang' => $kodebarang);
+      $data['list_data'] = $this->M_admin->get_data('databarang', $where);
+
+      $data['detail'] = $this->db->query("SELECT transaksi.keterangan,transaksi.idtransaksi,transaksi.kodebarang,transaksi.namabarang,transaksi.jumlahkeluar,transaksi.jumlahmasuk
+                                            FROM transaksi LEFT JOIN databarang ON databarang.kodebarang=transaksi.kodebarang
+                                            WHERE transaksi.kodebarang='$kodebarang' 
+                                            ")->result_array();
+
+      $this->load->view('detail_stok', $data);
+    } else {
+      redirect(base_url('Login'));
+    }
+  }
 
   public function proses_update_users()
   {
@@ -833,4 +876,3 @@ class Beranda extends CI_Controller
     }
   }
 }
-?>

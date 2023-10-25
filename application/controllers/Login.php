@@ -63,9 +63,9 @@ class Login extends CI_Controller {
 							redirect(base_url('User'));
 						}
 				}else {
-					$this->session->set_flashdata('pesangagal','<div class="alert alert-danger" role="alert">
-					Pastikan Username & Password Benar!
-				  </div>');
+					$this->session->set_flashdata('pesangagal',
+					'Password Salah!'
+				  );
 					redirect('login');
 				}
 			}
@@ -82,4 +82,3 @@ public function logout()
 		redirect(base_url('Login'));
 	}
 }
-?>

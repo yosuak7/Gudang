@@ -32,6 +32,7 @@
                       <th>Barang</th>
                       <th>Satuan</th>
                       <th>Jumlah</th>
+                      <th>Detail</th>
                       <th>Update</th>
                       <th>Delete</th>
                     </tr>
@@ -44,6 +45,7 @@
                           <td><?= $dd->namabarang; ?></td>
                           <td><?= $dd->satuan; ?></td>
                           <td><?= $dd->jumlah; ?></td>
+                          <td><a type="button" href="<?= base_url('beranda/detail_stok/' . $dd->kodebarang)?> " class="btn btn-info"  id="buttondetail" style="margin:auto;height:20%"><i class="fa fa-solid fa-list" aria-hidden="true"></i></a></td>
                           <td><a type="button" data-toggle="modal" class="btn btn-info" data-target="#modalkode" data-kode="<?php echo $dd->kodebarang; ?>" data-nama="<?php echo $dd->namabarang; ?>" data-satuan="<?php echo $dd->satuan; ?>" data-jumlah="<?php echo $dd->jumlah; ?>" id="buttonupdate" style="margin:auto;height:20%"><i class="fa fa-solid fa-pen" aria-hidden="true"></i></a></td>
                           <td><a type="button" class="btn btn-danger btn-delete" href="<?= base_url('beranda/delete_barang/' . $dd->id) ?>" id="buttondelete" style="margin:auto;height:20%"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                     </tr>
@@ -79,23 +81,23 @@
                     <div class="box-body">
                       <div class="form-group">
 
-                        <div class="form-group" style="margin-left:13px;display;">
+                        <div class="form-group" style="margin-left:13px;display:inline;">
                           <label for="kode_barang" style="width:90%;margin-left: 12px;">Kode Barang / Barcode</label>
                           <input type="text" name="kodebarang" readonly="readonly" style="width:50%;margin-right: 50px;" class="form-control" id="kode_barang" placeholder="Kode Barang">
                           <small><span class="text-danger"><?php echo form_error('kodebarang'); ?></span></small>
                         </div>
-                        <div class="form-group" style="margin-left:13px;display;">
+                        <div class="form-group" style="margin-left:13px;display:inline;">
                           <label for="nama_Barang" style="width:90%;">Nama Barang</label>
                           <input type="text" name="namabarang" style="width:50%;margin-right: 50px;" class="form-control" id="nama_Barang" placeholder="Nama Barang">
                           <small><span class="text-danger"><?php echo form_error('namabarang'); ?></span></small>
                         </div>
-                        <div class="form-group" style="margin-left:13px;display;">
+                        <div class="form-group" style="margin-left:13px;display:inline;">
                           <label for="satuan" style="width:90%;">Satuan</label>
                           <input type="text" name="satuan" style="width:50%;margin-right: 50px;" class="form-control" id="satuan" placeholder="Satuan">
                           <small><span class="text-danger"><?php echo form_error('satuan'); ?></span></small>
                         </div>
                       </div>
-                      <div class="form-group" style="margin-left:13px;display;">
+                      <div class="form-group" style="margin-left:13px;display:inline;">
                         <label for="jumlah" style="width:90%;">Stok Awal</label>
                         <input type="text" name="jumlah" style="width:50%;margin-right: 50px;" class="form-control" id="jumlah" placeholder="Stok Awal">
                         <small><span class="text-danger"><?php echo form_error('jumlah'); ?></span></small>

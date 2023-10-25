@@ -61,7 +61,7 @@
                 <tr>
                     <td><?= $dd['kodebarang']; ?></td>
                     <td><?= $dd['namabarang']; ?></td>
-                    <td><?= $dd['jumlah']; ?></td>
+                    <td><?= $dd['jumlahkeluar']; ?></td>
                 </tr>
             <?php
             }

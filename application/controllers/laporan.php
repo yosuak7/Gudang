@@ -137,7 +137,7 @@ class Laporan extends CI_Controller
         $this->load->model('M_admin');
         $where = array('idtransaksi' => $idtransaksi);
         $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
-        $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlah, barangkeluar.stok
+        $data['detail'] = $this->db->query("SELECT barangkeluar.id,barangkeluar.kodebarang,barangkeluar.namabarang,barangkeluar.satuan,barangkeluar.jumlahkeluar, barangkeluar.stok
                                                 FROM barangkeluar LEFT JOIN datakeluar ON datakeluar.idtransaksi=barangkeluar.idtransaksi
                                                 WHERE barangkeluar.idtransaksi='$idtransaksi' 
                                                 ")->result_array();
@@ -161,7 +161,7 @@ class Laporan extends CI_Controller
         $this->load->model('M_admin');
         $where = array('idtransaksi' => $idtransaksi);
         $data['list_data1'] = $this->M_admin->get_data('datamasuk', $where);
-        $data['detail'] = $this->db->query("SELECT barangmasuk.id,barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlah
+        $data['detail'] = $this->db->query("SELECT barangmasuk.id,barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlahmasuk
                                 FROM barangmasuk LEFT JOIN datamasuk ON datamasuk.idtransaksi=barangmasuk.idtransaksi WHERE barangmasuk.idtransaksi='$idtransaksi' 
                                     ")->result_array();
         // $this->load->library('dompdf_gen');
