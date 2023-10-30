@@ -255,7 +255,7 @@ class Beranda extends CI_Controller
       'idtransaksi' => $idtransaksi,
       'kodebarang'  => $kodebarang,
       'namabarang'  => $namabarang,
-      'stok'       => 0,
+      'stok'       => $stok,
       'satuan'       => $satuan,
       'jumlahmasuk'       => $jumlahmasuk
 
@@ -835,11 +835,11 @@ class Beranda extends CI_Controller
     if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
       $where = array('kodebarang' => $kodebarang);
       $data['list_data'] = $this->M_admin->get_data('databarang', $where);
+      $data['transaksi'] = $this->M_admin->get_data('transaksi', $where);
+      $data['detailstok'] = $this->db->query("SELECT transaksi.tanggal,transaksi.idtransaksi,transaksi.kodebarang,transaksi.namabarang,transaksi.keterangan,transaksi.jumlahkeluar,transaksi.jumlahmasuk,transaksi.awal
+      FROM transaksi WHERE transaksi.kodebarang='$kodebarang'  order by tanggal asc
+      ")->result_array();
 
-      $data['detail'] = $this->db->query("SELECT transaksi.keterangan,transaksi.idtransaksi,transaksi.kodebarang,transaksi.namabarang,transaksi.jumlahkeluar,transaksi.jumlahmasuk
-                                            FROM transaksi LEFT JOIN databarang ON databarang.kodebarang=transaksi.kodebarang
-                                            WHERE transaksi.kodebarang='$kodebarang' 
-                                            ")->result_array();
 
       $this->load->view('detail_stok', $data);
     } else {

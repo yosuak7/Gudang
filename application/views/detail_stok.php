@@ -14,44 +14,60 @@
                             <!-- general form elements -->
                             <div class="box box-primary" style="width:94%;">
                                 <div class="container">
+
                                     <?php
-                                    foreach ($list_data as $dd) { ?>
+                                    foreach ($list_data as $d) { ?>
                                         <div class="box-body">
                                             <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" href="<?= base_url('beranda/laporandatabarang') ?>" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
                                             <a type="text" class="bordered" style=" text-align: center;width:10%;">
-                                                <h3>Detail Stok <?php echo $dd->namabarang; ?></h3>
+                                                <h3>Detail Stok <?php echo $d->namabarang; ?></h3>
                                             </a>
                                         </div>
-                                    <?php } ?>
-                                    <table id="example3" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-
-                                                <th>ID Transaksi</th>
-                                                <th>Keterangan</th>
-                                                <th>Masuk</th>
-                                                <th>Keluar</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-
-                                                <?php foreach ($detail as $dd) { ?>
-
-                                                    <td><?= $dd['idtransaksi']; ?></td>
-                                                    <td><?= $dd['keterangan']; ?></td>
-                                                    <td><?= $dd['jumlahmasuk']; ?></td>
-                                                    <td><?= $dd['jumlahkeluar']; ?></td>
-                                            </tr>
-
-                                        <?php } ?>
 
 
+                                        <table id="example3" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tanggal</th>
+                                                    <th>ID Transaksi</th>
+                                                    <th>Keterangan</th>
+                                                    <th>Masuk</th>
+                                                    <th>Keluar</th>
+                                                    <th>Sisa Stok</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
 
+                                                    <?php foreach ($detailstok as $dd) { ?>
 
+                                                        <td><?= $dd['tanggal']; ?></td>
+                                                        <td><?= $dd['idtransaksi']; ?></td>
+                                                        <td><?= $dd['keterangan']; ?></td>
+                                                        <td><?= $dd['jumlahmasuk']; ?></td>
+                                                        <td><?= $dd['jumlahkeluar']; ?></td>
+                                                       
+                                                        <?php
+                                                        
+                                                        $masuk = $dd['jumlahmasuk'];
+                                                        $keluar = $dd['jumlahkeluar'];
+                                                                                                        
+                                                        if ($dd['jumlahmasuk'] == 0) {
+                                                            $saldo = $saldo + $dd['jumlahmasuk'] - $dd['jumlahkeluar'];
+                                                        } else {
+                                                            $saldo = $dd['jumlahmasuk'];
+                                                        }
+                                                       
+                                                        ?>
+                                                        <td><?= $saldo ?> </td>
+                                                </tr>
 
-                                        </tbody>
-                                    </table>
+                                        <?php } 
+                                    
+                                }
+                                        ?>
+                                            </tbody>
+                                        </table>
                                 </div>
                             </div>
                         </div>

@@ -128,11 +128,13 @@
                 $(document).on("click", "#buttonpilihbarangmasuk", function() {
 
                     var kodebarang1 = $(this).data('kodebarang');
-                    var namabarang1 = $(this).data('namabarang');
+                    var namabarang1 = $(this).data('namabarang'); 
                     var satuan1 = $(this).data('satuan');
+                    var stok1 = $(this).data('jumlah');
 
                     $("#kodebarang").val(kodebarang1);
                     $("#namabarang").val(namabarang1);
+                    $("#stok").val(stok1);
                     $("#satuan").val(satuan1);
                     $('#modal_pilih_masuk').modal('hide');
 

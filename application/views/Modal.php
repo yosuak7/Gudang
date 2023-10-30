@@ -124,7 +124,7 @@
                    <td><?= $dd->namabarang; ?></td>
                    <td><?= $dd->jumlah; ?></td>
                    <td><?= $dd->satuan; ?></td>
-                   <td><a type="button" class="btn btn-info" data-kodebarang="<?php echo $dd->kodebarang; ?>" data-namabarang="<?php echo $dd->namabarang; ?>" data-satuan="<?php echo $dd->satuan; ?>" id="buttonpilihbarangmasuk" style="margin:auto;height:20%"><i class="" aria-hidden="true"></i>Pilih</a></td>
+                   <td><a type="button" class="btn btn-info" data-kodebarang="<?php echo $dd->kodebarang; ?>" data-namabarang="<?php echo $dd->namabarang; ?>" data-satuan="<?php echo $dd->satuan; ?>" data-jumlah="<?php echo $dd->jumlah; ?>" id="buttonpilihbarangmasuk" style="margin:auto;height:20%"><i class="" aria-hidden="true"></i>Pilih</a></td>
              </tr>
            <?php endforeach; ?>
          <?php } else { ?>
