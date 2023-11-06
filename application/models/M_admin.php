@@ -105,4 +105,10 @@ class M_admin extends CI_Model
   {
       return $this->db->get('datasupplier');
   }
+  public function filter($date1, $date2)
+  {
+      $query = $this->db->query("SELECT * FROM `transaksi` WHERE `tanggal` BETWEEN '$date1' AND '$date2' ");
+      return $query->result();
+  }
+  
 }

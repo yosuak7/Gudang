@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+
 class Beranda extends CI_Controller
 {
 
@@ -831,6 +832,7 @@ class Beranda extends CI_Controller
   }
   public function detail_stok($kodebarang)
   {
+    
     $this->load->model('M_admin');
     if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
       $where = array('kodebarang' => $kodebarang);
@@ -839,6 +841,24 @@ class Beranda extends CI_Controller
       $data['detailstok'] = $this->db->query("SELECT transaksi.tanggal,transaksi.idtransaksi,transaksi.kodebarang,transaksi.namabarang,transaksi.keterangan,transaksi.jumlahkeluar,transaksi.jumlahmasuk,transaksi.awal
       FROM transaksi WHERE transaksi.kodebarang='$kodebarang'  order by tanggal asc
       ")->result_array();
+
+
+      $this->load->view('detail_stok', $data);
+    } else {
+      redirect(base_url('Login'));
+    }
+  }
+  public function filter()
+  {
+    $kodebarang = 0;
+    $this->load->model('M_admin');
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $date1        = $this->input->post('date1');
+      $date2     = $this->input->post('date2');
+      $where = array('kodebarang' => $kodebarang);
+      $data['list_data'] = $this->M_admin->get_data('databarang', $where);
+      $data['transaksi'] = $this->M_admin->get_data('transaksi', $where);
+      $data['detailstok'] = $this->M_admin->filter($date1, $date2);
 
 
       $this->load->view('detail_stok', $data);
@@ -876,3 +896,5 @@ class Beranda extends CI_Controller
     }
   }
 }
+
+?>
