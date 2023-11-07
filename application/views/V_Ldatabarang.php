@@ -29,7 +29,7 @@
                   <thead>
                     <tr>
                       <th>Kode Barang</th>
-                      <th>Barang</th>
+                      <th>Nama Barang</th>
                       <th>Satuan</th>
                       <th>Jumlah</th>
                       <th>Detail</th>
@@ -60,6 +60,7 @@
                       <th>Nama Barang</th>
                       <th>Satuan</th>
                       <th>Jumlah</th>
+                      <th>Detail</th>
                       <th>Update</th>
                       <th>Delete</th>
                     </tr>

@@ -848,9 +848,9 @@ class Beranda extends CI_Controller
       redirect(base_url('Login'));
     }
   }
-  public function filter()
+  public function filter($kodebarang)
   {
-    $kodebarang = 0;
+  
     $this->load->model('M_admin');
     if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
       $date1        = $this->input->post('date1');
@@ -858,7 +858,9 @@ class Beranda extends CI_Controller
       $where = array('kodebarang' => $kodebarang);
       $data['list_data'] = $this->M_admin->get_data('databarang', $where);
       $data['transaksi'] = $this->M_admin->get_data('transaksi', $where);
-      $data['detailstok'] = $this->M_admin->filter($date1, $date2);
+      $data['detailstok'] = $this->db->query("SELECT transaksi.tanggal,transaksi.idtransaksi,transaksi.kodebarang,transaksi.namabarang,transaksi.keterangan,transaksi.jumlahkeluar,transaksi.jumlahmasuk,transaksi.awal
+      FROM transaksi WHERE transaksi.kodebarang='$kodebarang' AND tanggal  BETWEEN '$date1' AND '$date2' order by tanggal asc
+      ")->result_array();
 
 
       $this->load->view('detail_stok', $data);
