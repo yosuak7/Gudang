@@ -1,5 +1,14 @@
 ﻿Demo Aplikasi <br/>
 
+Fitur : <br/>
+- one to many
+- mutasi stok
+- surat jalan
+- export laporan (pdf, excel)
+- select data dan set form 
+
+
+
 Default <br/>
 Username : Admin <br/>
 password : admin <br/>
