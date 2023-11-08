@@ -24,17 +24,16 @@
                                                 <h3>Detail Stok <?php echo $d->namabarang; ?></h3>
                                             </a>
                                         </div>
-
-                                        <form action="<?= base_url('beranda/filter/' . $d->kodebarang) ?>" role="form" method="post">
-                                            <table>
-                                                <div class="box-body">
-                                                    <div>
-                                                        <input type="text" readonly name="date1" id="date1" required>
-                                                        <input type="text" readonly name="date2" id="date2" required>
-                                                        <button class="btn btn-info">Filter</button>
-                                                    </div>
-                                                <?php } ?>
-                                            </table>
+                                        <table>
+                                            <div class="box-body">
+                                                <div>
+                                                    <a>Filter</a>
+                                                    <input type="text" name="min" id="min" placeholder="Tanggal">
+                                                    <a>s/d</a>
+                                                    <input type="text" name="max" id="max" placeholder="Tanggal">
+                                                </div>
+                                            <?php } ?>
+                                        </table>
                                         </form>
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
@@ -97,36 +96,68 @@
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
             <script src="js/scripts.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
             <script src="assets/demo/chart-area-demo.js"></script>
             <script src="assets/demo/chart-bar-demo.js"></script>
             <script src="<?php echo base_url() ?>assets/css/style.css"></script>
-            <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-            <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
             <script src="<?php echo base_url() ?>assets/sweetalert/dist/sweetalert.min.js"></script>
-            <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-            <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-            <script>
-                src = "https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"
-            </script>
 
-            <script>
-                flatpickr("input[type=text]", {});
-            </script>
+
+            <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+            <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+            <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+            <script src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
             <script>
                 $(function() {
-                    $('#example1').DataTable();
-                    $('#example2').DataTable({
+                    $('#example1').DataTable({
                         'paging': true,
                         'lengthChange': false,
-                        'searching': false,
-                        'ordering': true,
+                        'searching': true,
+                        'ordering': false,
                         'info': true,
                         'autoWidth': false
                     })
+                });
+            </script>
+            <script>
+                var minDate, maxDate;
+
+                // Custom filtering function which will search data in column four between two values
+                $.fn.dataTable.ext.search.push(
+                    function(settings, data, dataIndex) {
+                        var min = minDate.val();
+                        var max = maxDate.val();
+                        var date = new Date(data[0]);
+
+                        if (
+                            (min === null && max === null) ||
+                            (min === null && date <= max) ||
+                            (min <= date && max === null) ||
+                            (min <= date && date <= max)
+                        ) {
+                            return true;
+                        }
+                        return false;
+                    }
+                );
+
+                $(document).ready(function() {
+                    // Create date inputs
+                    minDate = new DateTime($('#min'), {
+                        format: 'MMMM Do YYYY'
+                    });
+                    maxDate = new DateTime($('#max'), {
+                        format: 'MMMM Do YYYY'
+                    });
+
+                    // DataTables initialisation
+                    var table = $('#example1').DataTable();
+
+                    // Refilter the table
+                    $('#min, #max').on('change', function() {
+                        table.draw();
+                    });
                 });
             </script>
             </body>

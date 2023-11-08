@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Agu 2023 pada 09.54
+-- Waktu pembuatan: 08 Nov 2023 pada 10.29
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.0.28
 
@@ -29,11 +29,15 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `barangkeluar` (
   `id` int(100) NOT NULL,
+  `kodeid` int(12) NOT NULL,
+  `tanggal` date NOT NULL,
+  `keterangan` varchar(100) NOT NULL,
   `idtransaksi` varchar(50) NOT NULL,
   `kodebarang` int(100) NOT NULL,
   `namabarang` varchar(100) NOT NULL,
   `stok` int(12) NOT NULL,
-  `jumlah` int(12) NOT NULL,
+  `jumlahmasuk` int(12) NOT NULL,
+  `jumlahkeluar` int(12) NOT NULL,
   `satuan` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -41,29 +45,39 @@ CREATE TABLE `barangkeluar` (
 -- Dumping data untuk tabel `barangkeluar`
 --
 
-INSERT INTO `barangkeluar` (`id`, `idtransaksi`, `kodebarang`, `namabarang`, `stok`, `jumlah`, `satuan`) VALUES
-(184, 'OUT00001', 12345678, 'monitor', 16, 10, 'pcs');
+INSERT INTO `barangkeluar` (`id`, `kodeid`, `tanggal`, `keterangan`, `idtransaksi`, `kodebarang`, `namabarang`, `stok`, `jumlahmasuk`, `jumlahkeluar`, `satuan`) VALUES
+(285, 1500000005, '2023-10-30', 'PT Mandiri Sejahtera', 'OUT00002', 12345678, 'monitor', 40, 0, 15, 'pcs'),
+(286, 1500000006, '2023-10-30', 'PT Mandiri Sejahtera', 'OUT00002', 1234, 'keyboard1', 15, 0, 10, 'pcs'),
+(287, 1500000009, '2023-10-31', 'CV Sejahtera', 'OUT00003', 789454168, 'Laptop Asus ROG', 12, 0, 2, 'unit'),
+(288, 1500000010, '2023-10-31', 'CV Sejahtera', 'OUT00003', 524136545, 'Laptop Acer', 5, 0, 3, 'pcs'),
+(289, 1500000011, '2023-10-31', 'CV Sejahtera', 'OUT00003', 12345678, 'monitor', 25, 0, 2, 'pcs'),
+(290, 1500000012, '2023-11-02', 'Eka Putra Sitepu', 'OUT00004', 12345678, 'monitor', 23, 0, 3, 'pcs'),
+(291, 1500000016, '2023-10-30', 'PT Mandiri Sejahtera', 'OUT00002', 12345678, 'monitor', 37, 0, 5, 'pcs'),
+(292, 1500000018, '2023-11-02', 'Eka Putra Sitepu', 'OUT00004', 1234, 'keyboard1', 10, 0, 2, 'pcs'),
+(293, 1500000019, '2023-11-08', 'PT Mandiri Sejahtera', 'OUT00005', 12345678, 'monitor', 38, 0, 12, 'pcs'),
+(294, 1500000020, '2023-11-06', 'CV Sejahtera', 'OUT00006', 12345678, 'monitor', 26, 0, 2, 'pcs'),
+(295, 1500000021, '2023-11-04', 'Ahmad putera', 'OUT00007', 12345678, 'monitor', 24, 0, 5, 'pcs');
 
 --
 -- Trigger `barangkeluar`
 --
 DELIMITER $$
 CREATE TRIGGER `barangkeluar` BEFORE INSERT ON `barangkeluar` FOR EACH ROW BEGIN
-	UPDATE databarang SET jumlah=jumlah-NEW.jumlah
+	UPDATE databarang SET jumlah=jumlah-NEW.jumlahkeluar
     WHERE kodebarang = NEW.kodebarang; 
 END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `barangkeluardelete` AFTER DELETE ON `barangkeluar` FOR EACH ROW UPDATE databarang set databarang.jumlah = databarang.jumlah + old.jumlah where databarang.kodebarang = old.kodebarang
+CREATE TRIGGER `barangkeluardelete` AFTER DELETE ON `barangkeluar` FOR EACH ROW UPDATE databarang set databarang.jumlah = databarang.jumlah + old.jumlahkeluar where databarang.kodebarang = old.kodebarang
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `barangkeluarupdate` AFTER UPDATE ON `barangkeluar` FOR EACH ROW UPDATE databarang set databarang.jumlah = databarang.jumlah + old.jumlah where databarang.kodebarang = old.kodebarang
+CREATE TRIGGER `barangkeluarupdate` AFTER UPDATE ON `barangkeluar` FOR EACH ROW UPDATE databarang set databarang.jumlah = databarang.jumlah + old.jumlahkeluar where databarang.kodebarang = old.kodebarang
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `barangkeluarupdate2` BEFORE UPDATE ON `barangkeluar` FOR EACH ROW UPDATE databarang set databarang.jumlah = databarang.jumlah - new.jumlah where databarang.kodebarang = new.kodebarang
+CREATE TRIGGER `barangkeluarupdate2` BEFORE UPDATE ON `barangkeluar` FOR EACH ROW UPDATE databarang set databarang.jumlah = databarang.jumlah - new.jumlahkeluar where databarang.kodebarang = new.kodebarang
 $$
 DELIMITER ;
 
@@ -75,52 +89,50 @@ DELIMITER ;
 
 CREATE TABLE `barangmasuk` (
   `id` int(100) NOT NULL,
+  `kodeid` int(100) NOT NULL,
+  `tanggal` date NOT NULL,
+  `keterangan` varchar(100) NOT NULL,
   `idtransaksi` int(50) NOT NULL,
   `kodebarang` int(35) NOT NULL,
   `namabarang` varchar(100) NOT NULL,
+  `stok` int(12) NOT NULL,
   `satuan` varchar(11) NOT NULL,
-  `jumlah` int(12) NOT NULL
+  `jumlahmasuk` int(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `barangmasuk`
 --
 
-INSERT INTO `barangmasuk` (`id`, `idtransaksi`, `kodebarang`, `namabarang`, `satuan`, `jumlah`) VALUES
-(133, 1700003, 1234, 'keyboard', 'pcs', 3),
-(134, 1700003, 1234, 'keyboard', 'pcs', 2),
-(135, 1700003, 12345678, 'monitor', 'pcs', 2),
-(184, 1700002, 12345678, 'monitor', 'pcs', 12),
-(187, 1700002, 789454168, 'Laptop Asus ROG', 'unit', 2),
-(188, 1700002, 789454168, 'Laptop Asus ROG', 'unit', 2),
-(189, 1700013, 2147483647, 'Laptop Samsung', 'Unit', 1),
-(190, 1700002, 1234, 'keyboard', 'pcs', 12),
-(191, 1700003, 524136545, 'Laptop Acer', 'pcs', 1),
-(192, 1700003, 524136545, 'Laptop Acer', 'pcs', 1),
-(194, 1700002, 12345678, 'monitor', 'pcs', 1),
-(195, 1700002, 12345678, 'monitor', 'pcs', 1),
-(196, 1700002, 12345678, 'monitor', 'pcs', 2);
+INSERT INTO `barangmasuk` (`id`, `kodeid`, `tanggal`, `keterangan`, `idtransaksi`, `kodebarang`, `namabarang`, `stok`, `satuan`, `jumlahmasuk`) VALUES
+(49, 1500000001, '2023-10-30', 'PT suka suka kamu', 1700001, 1234, 'keyboard1', 0, 'pcs', 20),
+(51, 1500000004, '2023-10-30', 'PT suka suka kamu', 1700001, 12345678, 'monitor', 0, 'pcs', 40),
+(52, 1500000007, '2023-10-31', 'CV gilang', 1700002, 789454168, 'Laptop Asus ROG', 0, 'unit', 12),
+(53, 1500000008, '2023-10-31', 'CV gilang', 1700002, 524136545, 'Laptop Acer', 0, 'pcs', 5),
+(56, 1500000013, '2023-10-31', 'PT maju jaya', 1700003, 12345678, 'monitor', 20, 'pcs', 3),
+(58, 1500000014, '2023-10-30', 'PT suka suka kamu', 1700001, 12345678, 'monitor', 23, 'pcs', 10),
+(60, 1500000017, '2023-11-01', 'CV gilang', 1700004, 12345678, 'monitor', 32, 'pcs', 10);
 
 --
 -- Trigger `barangmasuk`
 --
 DELIMITER $$
 CREATE TRIGGER `barangmasuk` BEFORE INSERT ON `barangmasuk` FOR EACH ROW BEGIN
-	UPDATE databarang SET jumlah = jumlah+NEW.jumlah
+	UPDATE databarang SET jumlah = jumlah+NEW.jumlahmasuk
     WHERE kodebarang = NEW.kodebarang;
 END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `barangmasukdelete` AFTER DELETE ON `barangmasuk` FOR EACH ROW UPDATE databarang set databarang.jumlah = databarang.jumlah - old.jumlah where databarang.kodebarang = old.kodebarang
+CREATE TRIGGER `barangmasukdelete` AFTER DELETE ON `barangmasuk` FOR EACH ROW UPDATE databarang set databarang.jumlah = databarang.jumlah - old.jumlahmasuk where databarang.kodebarang = old.kodebarang
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `barangmasukupdate` AFTER UPDATE ON `barangmasuk` FOR EACH ROW UPDATE databarang set databarang.jumlah = databarang.jumlah - old.jumlah where databarang.kodebarang = old.kodebarang
+CREATE TRIGGER `barangmasukupdate` AFTER UPDATE ON `barangmasuk` FOR EACH ROW UPDATE databarang set databarang.jumlah = databarang.jumlah - old.jumlahmasuk where databarang.kodebarang = old.kodebarang
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `barangmasukupdate2` BEFORE UPDATE ON `barangmasuk` FOR EACH ROW UPDATE databarang set databarang.jumlah = databarang.jumlah + new.jumlah where databarang.kodebarang = new.kodebarang
+CREATE TRIGGER `barangmasukupdate2` BEFORE UPDATE ON `barangmasuk` FOR EACH ROW UPDATE databarang set databarang.jumlah = databarang.jumlah + new.jumlahmasuk where databarang.kodebarang = new.kodebarang
 $$
 DELIMITER ;
 
@@ -143,10 +155,10 @@ CREATE TABLE `databarang` (
 --
 
 INSERT INTO `databarang` (`id`, `kodebarang`, `namabarang`, `satuan`, `jumlah`) VALUES
-(68, 12345678, 'monitor', 'pcs', 8),
-(69, 1234, 'keyboard1', 'pcs', 17),
+(68, 12345678, 'monitor', 'pcs', 19),
+(69, 1234, 'keyboard1', 'pcs', 8),
 (70, 524136545, 'Laptop Acer', 'pcs', 2),
-(71, 789454168, 'Laptop Asus ROG', 'unit', 4),
+(71, 789454168, 'Laptop Asus ROG', 'unit', 10),
 (73, 23151484, 'Laptop Lenovo', 'Unit', 0),
 (74, 12516535, 'keyboard Msi', 'Unit', 0),
 (76, 784123589, 'Samsung Galaxy A51', 'Unit', 0),
@@ -172,7 +184,9 @@ CREATE TABLE `datacustomer` (
 
 INSERT INTO `datacustomer` (`id`, `namacustomer`, `alamat`, `telepon`) VALUES
 (11, 'Eka Putra Sitepu', 'perum', '02132154984'),
-(12, 'CV Sejahtera', 'Sidoarjo', '0213254165');
+(12, 'CV Sejahtera', 'Sidoarjo', '0213254165'),
+(13, 'PT Mandiri Sejahtera', 'Tangerang', '412414124'),
+(17, 'Ahmad putera', 'Tangerang', '643643346');
 
 -- --------------------------------------------------------
 
@@ -194,7 +208,12 @@ CREATE TABLE `datakeluar` (
 --
 
 INSERT INTO `datakeluar` (`id`, `tanggal`, `idtransaksi`, `namacustomer`, `alamat`, `telepon`) VALUES
-(5, '2023-08-16', 'OUT00001', 'CV Sejahtera', 'Sidoarjo', 213254165);
+(18, '2023-10-30', 'OUT00002', 'PT Mandiri Sejahtera', 'Tangerang', 412414124),
+(19, '2023-10-31', 'OUT00003', 'CV Sejahtera', 'Sidoarjo', 213254165),
+(20, '2023-11-02', 'OUT00004', 'Eka Putra Sitepu', 'perum', 2132154984),
+(21, '2023-11-08', 'OUT00005', 'PT Mandiri Sejahtera', 'Tangerang', 412414124),
+(22, '2023-11-06', 'OUT00006', 'CV Sejahtera', 'Sidoarjo', 213254165),
+(23, '2023-11-04', 'OUT00007', 'Ahmad putera', 'Tangerang', 643643346);
 
 -- --------------------------------------------------------
 
@@ -216,17 +235,11 @@ CREATE TABLE `datamasuk` (
 --
 
 INSERT INTO `datamasuk` (`id`, `idtransaksi`, `tanggal`, `namasupplier`, `alamat`, `telepon`) VALUES
-(3, 1700002, '2023-08-09', 'PT Jalan Jalan sendirian', 'tangerang kota', 2132156848),
-(4, 1700003, '2023-08-09', 'PT suka suka kamu', 'Tangerang', 2112345678),
-(5, 1700004, '2023-08-12', 'PT suka suka kamu', 'Tangerang', 2112345678),
-(6, 1700005, '2023-08-14', 'PT maju jaya', 'jakarta', 2147483647),
-(8, 1700007, '2023-08-14', 'CV gilang', 'bandung', 2147483647),
-(9, 1700008, '2023-08-14', 'CV sejati', 'Malang', 524165348),
-(10, 1700009, '2023-08-14', 'PT maju jaya', 'jakarta', 2147483647),
-(11, 1700010, '2023-08-14', 'CV sejati', 'Malang', 524165348),
-(12, 1700011, '2023-08-14', 'PT suka suka kamu', 'Tangerang', 2112345678),
-(13, 1700012, '2023-08-14', 'CV gilang', 'bandung', 2147483647),
-(14, 1700013, '2023-08-14', 'PT Jalan Jalan sendirian', 'tangerang kota', 2132156848);
+(24, 1700001, '2023-10-30', 'PT suka suka kamu', 'Tangerang', 2112345678),
+(26, 1700002, '2023-10-31', 'CV gilang', 'bandung', 2147483647),
+(28, 1700003, '2023-10-31', 'PT maju jaya', 'jakarta', 2147483647),
+(29, 1700004, '2023-11-01', 'CV gilang', 'bandung', 2147483647),
+(30, 1700005, '2023-11-02', 'PT suka suka kamu', 'dsada', 1231);
 
 -- --------------------------------------------------------
 
@@ -250,7 +263,54 @@ INSERT INTO `datasupplier` (`id`, `namasupplier`, `alamat`, `telepon`) VALUES
 (8, 'PT Jalan Jalan sendirian', 'tangerang kota', '02132156848'),
 (9, 'PT maju jaya', 'jakarta', '32525326263'),
 (10, 'CV gilang', 'bandung', '5416345864'),
-(11, 'CV sejati', 'Malang1', '524165348');
+(11, 'CV sejati', 'Malang1', '524165348'),
+(12, 'PT suka maju', 'Tangerang', '4165341856'),
+(13, 'PT suka suka kamu', 'dsada', '1231');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `transaksi`
+--
+
+CREATE TABLE `transaksi` (
+  `id` bigint(12) NOT NULL,
+  `kodeid` int(100) NOT NULL,
+  `tanggal` date NOT NULL,
+  `keterangan` varchar(200) NOT NULL,
+  `idtransaksi` varchar(100) NOT NULL,
+  `kodebarang` int(100) NOT NULL,
+  `namabarang` varchar(100) NOT NULL,
+  `stok` int(12) NOT NULL,
+  `jumlahmasuk` int(12) NOT NULL,
+  `jumlahkeluar` int(12) NOT NULL,
+  `satuan` varchar(12) NOT NULL,
+  `awal` varchar(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `transaksi`
+--
+
+INSERT INTO `transaksi` (`id`, `kodeid`, `tanggal`, `keterangan`, `idtransaksi`, `kodebarang`, `namabarang`, `stok`, `jumlahmasuk`, `jumlahkeluar`, `satuan`, `awal`) VALUES
+(2147483717, 1500000001, '2023-10-30', 'PT suka suka kamu', '1700001', 1234, 'keyboard1', 0, 20, 0, 'pcs', '0'),
+(2147483721, 1500000004, '2023-10-30', 'PT suka suka kamu', '1700001', 12345678, 'monitor', 0, 40, 0, 'pcs', '0'),
+(2147483722, 1500000005, '2023-10-30', 'PT Mandiri Sejahtera', 'OUT00002', 12345678, 'monitor', 40, 0, 15, 'pcs', '0'),
+(2147483723, 1500000006, '2023-10-30', 'PT Mandiri Sejahtera', 'OUT00002', 1234, 'keyboard1', 15, 0, 10, 'pcs', ''),
+(2147483724, 1500000007, '2023-10-31', 'CV gilang', '1700002', 789454168, 'Laptop Asus ROG', 0, 12, 0, 'unit', ''),
+(2147483725, 1500000008, '2023-10-31', 'CV gilang', '1700002', 524136545, 'Laptop Acer', 0, 5, 0, 'pcs', ''),
+(2147483726, 1500000009, '2023-10-31', 'CV Sejahtera', 'OUT00003', 789454168, 'Laptop Asus ROG', 12, 0, 2, 'unit', ''),
+(2147483727, 1500000010, '2023-10-31', 'CV Sejahtera', 'OUT00003', 524136545, 'Laptop Acer', 5, 0, 3, 'pcs', ''),
+(2147483728, 1500000011, '2023-10-31', 'CV Sejahtera', 'OUT00003', 12345678, 'monitor', 25, 0, 2, 'pcs', ''),
+(2147483731, 1500000012, '2023-11-02', 'Eka Putra Sitepu', 'OUT00004', 12345678, 'monitor', 23, 0, 3, 'pcs', ''),
+(2147483732, 1500000013, '2023-10-31', 'PT maju jaya', '1700003', 12345678, 'monitor', 20, 3, 0, 'pcs', ''),
+(2147483734, 1500000014, '2023-10-30', 'PT suka suka kamu', '1700001', 12345678, 'monitor', 23, 10, 0, 'pcs', ''),
+(2147483736, 1500000016, '2023-10-30', 'PT Mandiri Sejahtera', 'OUT00002', 12345678, 'monitor', 37, 0, 5, 'pcs', ''),
+(2147483737, 1500000017, '2023-11-01', 'CV gilang', '1700004', 12345678, 'monitor', 32, 10, 0, 'pcs', ''),
+(2147483738, 1500000018, '2023-11-02', 'Eka Putra Sitepu', 'OUT00004', 1234, 'keyboard1', 10, 0, 2, 'pcs', ''),
+(2147483739, 1500000019, '2023-11-08', 'PT Mandiri Sejahtera', 'OUT00005', 12345678, 'monitor', 38, 0, 12, 'pcs', ''),
+(2147483740, 1500000020, '2023-11-06', 'CV Sejahtera', 'OUT00006', 12345678, 'monitor', 26, 0, 2, 'pcs', ''),
+(2147483741, 1500000021, '2023-11-04', 'Ahmad putera', 'OUT00007', 12345678, 'monitor', 24, 0, 5, 'pcs', '');
 
 -- --------------------------------------------------------
 
@@ -267,7 +327,7 @@ CREATE TABLE `users` (
   `role` int(2) NOT NULL,
   `avatar` varchar(32) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `last_login` timestamp NULL DEFAULT NULL
+  `last_login` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -328,6 +388,12 @@ ALTER TABLE `datasupplier`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
@@ -341,13 +407,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `barangkeluar`
 --
 ALTER TABLE `barangkeluar`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=296;
 
 --
 -- AUTO_INCREMENT untuk tabel `barangmasuk`
 --
 ALTER TABLE `barangmasuk`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=197;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT untuk tabel `databarang`
@@ -359,31 +425,37 @@ ALTER TABLE `databarang`
 -- AUTO_INCREMENT untuk tabel `datacustomer`
 --
 ALTER TABLE `datacustomer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT untuk tabel `datakeluar`
 --
 ALTER TABLE `datakeluar`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `datamasuk`
 --
 ALTER TABLE `datamasuk`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `datasupplier`
 --
 ALTER TABLE `datasupplier`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT untuk tabel `transaksi`
+--
+ALTER TABLE `transaksi`
+  MODIFY `id` bigint(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2147483742;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6157;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6160;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

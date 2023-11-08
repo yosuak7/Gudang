@@ -848,6 +848,8 @@ class Beranda extends CI_Controller
       redirect(base_url('Login'));
     }
   }
+
+  //fungsi jika ingin memfilter berdasarkan tanggal
   public function filter($kodebarang)
   {
   
