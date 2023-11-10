@@ -141,17 +141,24 @@
                 $(".modal-body #jumlah").val(jumlah1);
 
               });
-              jQuery(document).ready(function($) {
-                $('.btn-delete').on('click', function() {
-                  var getLink = $(this).attr('href');
-                  swal({
-                    title: 'Hapus Data',
-                    text: 'Yakin Ingin Menghapus Data ?',
-                    html: true,
-                    confirmButtonColor: '#d9534f',
-                    showCancelButton: true,
-                  }, function() {
-                    window.location.href = getLink
+               jQuery(document).ready(function($) {
+                    $('.btn-delete').on('click', function() {
+                        var getLink = $(this).attr('href');
+                        swal({
+                            title: 'Hapus Data',
+                            text: 'Yakin Ingin Menghapus Data ?',
+                            type: 'warning',
+                            html: true,
+                            confirmButtonColor: '#d9534f',
+                            showCancelButton: true,
+                        }, function(confirm) {
+                            if (confirm) {
+                                window.location.href = getLink;
+                                swal("Berhasil Hapus, Silahkan Refresh!");
+                             
+                            } else {
+                                swal("Error!!");
+                            }
                   });
                   return false;
                 });

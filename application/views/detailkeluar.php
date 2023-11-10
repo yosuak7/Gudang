@@ -22,7 +22,7 @@
                                 <div class="box-header with-border">
                                     <?php
                                     foreach ($list_data1 as $dd) { ?>
-                                        <a target ="_blank" href="<?= base_url('laporan/printbarangkeluar/' . $dd->idtransaksi); ?>" class="btn btn-info mb-3"><i class="fa fa-print"></i> Print</a>
+                                        <a target="_blank" href="<?= base_url('laporan/printbarangkeluar/' . $dd->idtransaksi); ?>" class="btn btn-info mb-3"><i class="fa fa-print"></i> Print</a>
                                     <?php } ?>
                                     <h5 class="box-title"><i class="fa fa-archive" aria-hidden="true"></i> Tambah Barang Keluar</h5>
                                 </div>
@@ -140,13 +140,22 @@
                         swal({
                             title: 'Hapus Data',
                             text: 'Yakin Ingin Menghapus Data ?',
+                            type: 'warning',
                             html: true,
                             confirmButtonColor: '#d9534f',
                             showCancelButton: true,
-                        }, function() {
-                            window.location.href = getLink
+                        }, function(confirm) {
+                            if (confirm) {
+                                window.location.href = getLink;
+                                swal({
+                                    text: 'Berhasil Dihapus',
+                                    type: 'succes',
+                                    showCancelButton: true
+                                });
+                            } else {
+                                return false;
+                            }
                         });
-                        return false;
                     });
                 });
             </script>

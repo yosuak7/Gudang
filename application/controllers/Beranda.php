@@ -122,9 +122,12 @@ class Beranda extends CI_Controller
     $this->load->model('M_admin');
     $where = array('id' => $id);
     $this->M_admin->delete('databarang', $where);
-    $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success" role="alert">
-    Data Berhasil di Hapus
-      </div>');
+    $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Data Berhasil Dihapus!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>');
     redirect(base_url('beranda/laporandatabarang'));
   }
 
@@ -136,9 +139,12 @@ class Beranda extends CI_Controller
     $this->M_admin->delete('barangmasuk', $where);
     $this->M_admin->delete('transaksi', $where);
 
-    $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success" role="alert">
-    Data Berhasil di Hapus
-      </div>');
+    $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Data Berhasil Dihapus!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>');
     redirect(base_url('beranda/barangmasuk'));
   }
   public function delete_transaksi_keluar($idtransaksi)
@@ -149,9 +155,12 @@ class Beranda extends CI_Controller
     $this->M_admin->delete('barangkeluar', $where);
     $this->M_admin->delete('transaksi', $where);
 
-    $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success" role="alert">
-    Data Berhasil di Hapus
-      </div>');
+    $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Data Berhasil Dihapus!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>');
     redirect(base_url('beranda/barangkeluar'));
   }
   public function delete_customer($id)
@@ -159,9 +168,12 @@ class Beranda extends CI_Controller
     $this->load->model('M_admin');
     $where = array('id' => $id);
     $this->M_admin->delete('datacustomer', $where);
-    $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success" role="alert">
-    Data Berhasil di Hapus
-      </div>');
+    $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Data Berhasil Dihapus!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>');
     redirect(base_url('beranda/datacustomer'));
   }
   public function delete_supplier($id)
@@ -169,9 +181,12 @@ class Beranda extends CI_Controller
     $this->load->model('M_admin');
     $where = array('id' => $id);
     $this->M_admin->delete('datasupplier', $where);
-    $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success" role="alert">
-    Data Berhasil di Hapus
-      </div>');
+    $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Data Berhasil Dihapus!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>');
     redirect(base_url('beranda/datasupplier'));
   }
 
@@ -182,9 +197,12 @@ class Beranda extends CI_Controller
     $where = array('kodeid' => $kodeid);
     $this->M_admin->delete('barangkeluar', $where);
     $this->M_admin->delete('transaksi', $where);
-    $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success" role="alert">
-    Data Berhasil di Hapus
-      </div>');
+    $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Data Berhasil Dihapus!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>');
     $where = array('idtransaksi' => $idtransaksi);
 
     $data['list_data2'] = $this->M_admin->select('databarang');
@@ -194,9 +212,7 @@ class Beranda extends CI_Controller
                                             WHERE barangkeluar.idtransaksi='$idtransaksi' 
                                             ")->result_array();
 
-    $this->load->view('detailkeluar', $data);
-    $this->load->view('modal_form_keluar', $data);
-    $this->load->view('modal', $data);
+    redirect(base_url('beranda/detail_keluar', $data));
   }
   public function delete_barang_masuk($kodeid)
   {
@@ -206,7 +222,12 @@ class Beranda extends CI_Controller
 
     $this->M_admin->delete('barangmasuk', $where1);
     $this->M_admin->delete('transaksi', $where1);
-    $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success" role="alert"> Data Berhasil di Hapus </div>');
+    $this->session->set_flashdata('berhasildelete', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Data Berhasil Dihapus!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>');
     $where = array('idtransaksi' => $idtransaksi);
 
     $data['list_data2'] = $this->M_admin->select('databarang');
@@ -262,13 +283,32 @@ class Beranda extends CI_Controller
 
     );
     if ($jumlahmasuk <= 0) {
-      $this->session->set_flashdata('masuksalah1', '<div class="alert alert-danger" role="alert">
-      Jumlah Masuk Belum Diisi </div>');
+      $this->session->set_flashdata('masuksalah1', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Jumlah Masuk Belum Di isi!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
+      $where = array('idtransaksi' => $idtransaksi);
+
+      $data['list_data2'] = $this->M_admin->select('databarang');
+      $data['list_data1'] = $this->M_admin->get_data('datamasuk', $where);
+      $data['detail'] = $this->db->query("SELECT barangmasuk.id, barangmasuk.kodeid,barangmasuk.kodebarang,barangmasuk.namabarang,barangmasuk.satuan,barangmasuk.jumlahmasuk
+                                              FROM barangmasuk LEFT JOIN datamasuk ON datamasuk.idtransaksi=barangmasuk.idtransaksi
+                                              WHERE barangmasuk.idtransaksi='$idtransaksi' 
+                                              ")->result_array();
+      $this->load->view('detailmasuk', $data);
+      $this->load->view('modal_form', $data);
+      $this->load->view('modal', $data);
     } else {
       $this->M_admin->insert('barangmasuk', $data);
       $this->M_admin->insert('transaksi', $data);
-      $this->session->set_flashdata('berhasilmasuk', '<div class="alert alert-success" role="alert">
-      Barang Berhasil Dimasukkan </div>');
+      $this->session->set_flashdata('berhasilmasuk', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Barang Berhasil Dimasukkan!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
       $where = array('idtransaksi' => $idtransaksi);
 
       $data['list_data2'] = $this->M_admin->select('databarang');
@@ -315,8 +355,12 @@ class Beranda extends CI_Controller
       'telepon'       => $telepon
     );
     $this->M_admin->insert('datamasuk', $data);
-    $this->session->set_flashdata('berhasilmasuk', '<div class="alert alert-success" role="alert">
-      Data Berhasil Ditambahkan </div>');
+    $this->session->set_flashdata('berhasilmasuk', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Data Berhasil Ditambahkan!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>');
     redirect(base_url('beranda/datamasuk'));
   }
 
@@ -353,8 +397,12 @@ class Beranda extends CI_Controller
       'telepon'       => $telepon
     );
     $this->M_admin->insert('datakeluar', $data);
-    $this->session->set_flashdata('berhasilkeluar', '<div class="alert alert-success" role="alert">
-      Data Berhasil Ditambahkan </div>');
+    $this->session->set_flashdata('berhasilkeluar', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Data Berhasil Ditambahkan!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>');
     redirect(base_url('beranda/datakeluar'));
   }
 
@@ -375,9 +423,12 @@ class Beranda extends CI_Controller
     $this->form_validation->set_message('numeric', '%s Harus Di isi dengan angka');
 
     if ($this->form_validation->run() != TRUE) {
-      $this->session->set_flashdata('gagal', '<div class="alert alert-danger" role="alert">
-   Pastikan Form terisi dengan Benar
-     </div>');
+      $this->session->set_flashdata('gagal', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Pastikan Form Di Isi Dengan Benar</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
       redirect(base_url('beranda/detail_keluar'));
     }
     $kodeid = $this->input->post('kodeid', TRUE);
@@ -403,8 +454,12 @@ class Beranda extends CI_Controller
       'jumlahmasuk' => 0
     );
     if ($jumlahkeluar <= 0) {
-      $this->session->set_flashdata('Stoksalah', '<div class="alert alert-danger" role="alert">
-     Jumlah Keluar Belum Diisi </div>');
+      $this->session->set_flashdata('Stoksalah', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Jumlah Keluar Belum Di isi!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
       $where = array('idtransaksi' => $idtransaksi);
       $data['list_data2'] = $this->M_admin->select('databarang');
       $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
@@ -420,8 +475,12 @@ class Beranda extends CI_Controller
     if ($stok >= $jumlahkeluar) {
       $this->M_admin->insert('barangkeluar', $data);
       $this->M_admin->insert('transaksi', $data);
-      $this->session->set_flashdata('berhasilkeluar', '<div class="alert alert-success" role="alert">
-     Barang Berhasil Dikeluarkan </div>');
+      $this->session->set_flashdata('berhasilkeluar', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Barang Berhasil Di Keluarkan!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
       $where = array('idtransaksi' => $idtransaksi);
       $data['list_data2'] = $this->M_admin->select('databarang');
       $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
@@ -434,8 +493,12 @@ class Beranda extends CI_Controller
       $this->load->view('modal_form_keluar', $data);
       $this->load->view('modal', $data);
     } else {
-      $this->session->set_flashdata('Stokkurang', '<div class="alert alert-danger" role="alert">
-     Stok Tidak mencukupi </div>');
+      $this->session->set_flashdata('Stokkurang', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Stok Tidak Mencukupi!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
       $where = array('idtransaksi' => $idtransaksi);
       $data['list_data2'] = $this->M_admin->select('databarang');
       $data['list_data1'] = $this->M_admin->get_data('datakeluar', $where);
@@ -464,8 +527,11 @@ class Beranda extends CI_Controller
       'telepon'       => $telepon
     );
     $this->M_admin->insert('datacustomer', $data);
-    $this->session->set_flashdata('berhasiltambahcustomer', '<div class="alert alert-success" role="alert">
-    Data Berhasil Ditambahkan
+    $this->session->set_flashdata('berhasiltambahcustomer', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Data Berhasil Ditambahkan!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>');
     redirect(base_url('beranda/inputcustomer'));
   }
@@ -483,8 +549,12 @@ class Beranda extends CI_Controller
       'telepon'       => $telepon
     );
     $this->M_admin->insert('datasupplier', $data);
-    $this->session->set_flashdata('berhasiltambahsupplier', '<div class="alert alert-success" role="alert">
-    Data Berhasil Ditambahkan </div>');
+    $this->session->set_flashdata('berhasiltambahsupplier', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Data Berhasil Ditambahkan!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>');
     redirect(base_url('beranda/inputsupplier'));
   }
   public function submitbarangbaru()
@@ -511,10 +581,20 @@ class Beranda extends CI_Controller
     $cek =  $this->M_admin->cek_kode('databarang', $kodebarang);
     if ($cek->num_rows() != 1) {
       $this->M_admin->insert('databarang', $data);
-      $this->session->set_flashdata('berhasiltambah', '<div class="alert alert-success" role="alert"> Barang Berhasil Ditambahkan </div>');
+      $this->session->set_flashdata('berhasiltambah', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Data Berhasil Ditambahkan!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
       redirect(base_url('beranda/inputbarang'));
     } else {
-      $this->session->set_flashdata('gagaltambah', '<div class="alert alert-danger" role="alert"> Kode Barang Sudah Ada </div>');
+      $this->session->set_flashdata('gagaltambah', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Kode Barang Sudah Ada!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
       redirect(base_url('beranda/inputbarang'));
     }
   }
@@ -601,8 +681,12 @@ class Beranda extends CI_Controller
     $this->form_validation->set_message('numeric', '%s Harus Di isi dengan angka');
 
     if ($this->form_validation->run() != TRUE) {
-      $this->session->set_flashdata('pesangagal', '<div class="alert alert-danger" role="alert">
-      Kolom Tidak Di Isi Dengan benar / Tidak Terisi </div>');
+      $this->session->set_flashdata('pesangagal', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Kolom Tidak Di isi Dengan Benar!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
       redirect(base_url('beranda/laporandatabarang'));
     }
     $kodebarang  = $this->input->post('kodebarang', TRUE);
@@ -619,8 +703,12 @@ class Beranda extends CI_Controller
       'jumlah'       => $jumlah
     );
     $this->M_admin->update('databarang', $data, $where);
-    $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
-      Data Berhasil di Update </div>');
+    $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Data Berhasil Diupdate!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>');
     redirect(base_url('beranda/laporandatabarang'));
   }
   function prosesupdatedatacustomer()
@@ -637,8 +725,12 @@ class Beranda extends CI_Controller
     $this->form_validation->set_message('numeric', '%s Harus Di isi dengan angka');
 
     if ($this->form_validation->run() != TRUE) {
-      $this->session->set_flashdata('pesangagal', '<div class="alert alert-danger" role="alert">
-      Kolom Tidak Di Isi Dengan benar / Tidak Terisi </div>');
+      $this->session->set_flashdata('pesangagal', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Kolom Tidak Di isi Dengan Benar!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
       redirect(base_url('beranda/datacustomer'));
     }
     $id  = $this->input->post('id', TRUE);
@@ -654,7 +746,12 @@ class Beranda extends CI_Controller
       'telepon'       => $telepon
     );
     $this->M_admin->update('datacustomer', $data, $where);
-    $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"> Data Berhasil di Update </div>');
+    $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Data Berhasil Diupdate!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>');
     redirect(base_url('beranda/datacustomer'));
   }
   function prosesupdatedatasupplier()
@@ -671,8 +768,11 @@ class Beranda extends CI_Controller
     $this->form_validation->set_message('numeric', '%s Harus Di isi dengan angka');
 
     if ($this->form_validation->run() != TRUE) {
-      $this->session->set_flashdata('pesangagal', '<div class="alert alert-danger" role="alert">
-      Kolom Tidak Di Isi Dengan benar / Tidak Terisi
+      $this->session->set_flashdata('pesangagal', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Kolom Tidak Di isi Dengan Benar!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>');
       redirect(base_url('beranda/datasupplier'));
     }
@@ -690,9 +790,12 @@ class Beranda extends CI_Controller
       'telepon'       => $telepon
     );
     $this->M_admin->update('datasupplier', $data, $where);
-    $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
-      Data Berhasil di Update
-    </div>');
+    $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Data Berhasil Diupdate!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>');
     redirect(base_url('beranda/datasupplier'));
   }
   public function proses_new_password()
@@ -721,7 +824,12 @@ class Beranda extends CI_Controller
 
         $this->M_admin->update_password('users', $where, $data);
 
-        $this->session->set_flashdata('msg_berhasil', 'Password Telah Diganti');
+        $this->session->set_flashdata('msg_berhasil', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Password Berhasil Di Ubah!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>');
         redirect(base_url('beranda/profile'));
       }
     } else {
@@ -762,8 +870,11 @@ class Beranda extends CI_Controller
     $id = $this->uri->segment(3);
     $where = array('id' => $id);
     $this->M_admin->delete('users', $where);
-    $this->session->set_flashdata('deleteuser', '<div class="alert alert-success" role="alert">
-    Data Berhasil di Hapus
+    $this->session->set_flashdata('deleteuser', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>User Berhasil Di Hapus!</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>');
     redirect(base_url('beranda/users'));
   }
@@ -811,10 +922,20 @@ class Beranda extends CI_Controller
         $cek =  $this->M_admin->cek_users('users', $username);
         if ($cek->num_rows() != 1) {
           $this->M_admin->insert('users', $data);
-          $this->session->set_flashdata('msg_berhasil', '<div class="alert alert-success" role="alert"> User Berhasil Ditambahkan </div>');
+          $this->session->set_flashdata('msg_berhasil', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Data Berhasil Ditambahkan!</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>');
           redirect(base_url('beranda/Users'));
         } else {
-          $this->session->set_flashdata('gagaltambah', '<div class="alert alert-danger" role="alert"> Username Sudah Ada </div>');
+          $this->session->set_flashdata('gagaltambah', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Username Sudah Ada!</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>');
           redirect(base_url('beranda/users'));
         }
       }
@@ -832,7 +953,7 @@ class Beranda extends CI_Controller
   }
   public function detail_stok($kodebarang)
   {
-    
+
     $this->load->model('M_admin');
     if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
       $where = array('kodebarang' => $kodebarang);
@@ -852,7 +973,7 @@ class Beranda extends CI_Controller
   //fungsi jika ingin memfilter berdasarkan tanggal
   public function filter($kodebarang)
   {
-  
+
     $this->load->model('M_admin');
     if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
       $date1        = $this->input->post('date1');
@@ -891,14 +1012,25 @@ class Beranda extends CI_Controller
         'email'        => $email,
         'role'         => $role,
       );
-      $this->M_admin->update('users', $data, $where);
-      $this->session->set_flashdata('userberhasil', '<div class="alert alert-success" role="alert"> Data Berhasil di Update </div>');
-      redirect(base_url('Beranda/users'));
-    } else {
-      $this->session->set_flashdata('usergagal', '<div class="alert alert-danger" role="alert"> Ada Kesalahan </div>');
-      redirect(base_url('Beranda/users'));
+      $cek =  $this->M_admin->cek_users('users', $username);
+      if ($cek->num_rows() != 1) {
+        $this->M_admin->update('users', $data, $where);
+        $this->session->set_flashdata('userberhasil', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Data Berhasil DiUpdate!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
+        redirect(base_url('Beranda/users'));
+      } else {
+        $this->session->set_flashdata('usergagal', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Username Sudah Ada!</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>');
+        redirect(base_url('Beranda/users'));
+      }
     }
   }
 }
-
-?>

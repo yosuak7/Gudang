@@ -28,9 +28,9 @@
                                             <div class="box-body">
                                                 <div>
                                                     <a>Filter</a>
-                                                    <input type="text" name="min" id="min" placeholder="Tanggal">
+                                                    <input type="text" name="min" id="min" placeholder="Tanggal" value="<?php echo date('m/j/Y') ?>">
                                                     <a>s/d</a>
-                                                    <input type="text" name="max" id="max" placeholder="Tanggal">
+                                                    <input type="text" name="max" id="max" placeholder="Tanggal" value="<?php echo date('m/j/Y') ?>">
                                                 </div>
                                             <?php } ?>
                                         </table>
@@ -69,7 +69,11 @@
                                                             } else {
                                                                 $saldo = $saldo + $masuk - $keluar;
                                                             }
+
+                                                            $totalmasuk = $masuk +  $totalmasuk;
+                                                            $totalkeluar = $keluar +  $totalkeluar;
                                                             ?>
+
                                                             <td><?= $saldo ?> </td>
                                                 </tr>
                                             <?php endforeach; ?>
@@ -79,12 +83,12 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th>Tanggal</th>
-                                                    <th>ID Transaksi</th>
-                                                    <th>Keterangan</th>
-                                                    <th>Masuk</th>
-                                                    <th>Keluar</th>
-                                                    <th>Sisa Stok</th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <td><?= $totalmasuk ?> </td>
+                                                    <td><?= $totalkeluar ?> </td>
+                                                    <th></th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -123,12 +127,12 @@
             <script>
                 var minDate, maxDate;
 
-                // Custom filtering function which will search data in column four between two values
+                // fungsi filter di kolom mana data akan dicari 
                 $.fn.dataTable.ext.search.push(
                     function(settings, data, dataIndex) {
                         var min = minDate.val();
                         var max = maxDate.val();
-                        var date = new Date(data[0]);
+                        var date = new Date(data[0]); //karena tanggal ada di kolom pertama maka di tulis 0
 
                         if (
                             (min === null && max === null) ||
@@ -145,10 +149,10 @@
                 $(document).ready(function() {
                     // Create date inputs
                     minDate = new DateTime($('#min'), {
-                        format: 'MMMM Do YYYY'
+                        format: 'MM/D/YYYY'
                     });
                     maxDate = new DateTime($('#max'), {
-                        format: 'MMMM Do YYYY'
+                        format: 'MM/D/YYYY'
                     });
 
                     // DataTables initialisation
