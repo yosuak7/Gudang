@@ -23,6 +23,7 @@
 
                                     <h3 class="box-title"><i class="fa fa-table" aria-hidden="true"></i>Data Supplier</h3>
                                 </div>
+                                <a href="<?= base_url('user/inputsupplier'); ?>" class="btn btn-info mb-3"><i class="fa fa-plus"></i> Tambah Supplier</a>
                                 <a href="<?= base_url('laporan/laporan_supplier_pdf'); ?>" class="btn btn-danger mb-3"><i class="far fa-file-pdf"></i> Download Pdf</a>
                                 <a href="<?= base_url('laporan/export_data_supplier'); ?>" class="btn btn-success mb-3"><i class="far fa-file-excel"></i> Export ke Excel</a>
                                 <table id="example1" class="table table-bordered table-striped">
@@ -76,19 +77,19 @@
                                     <form action="<?= site_url('user/prosesupdatedatasupplier') ?>" role="form" method="post">
                                         <div class="box-body">
                                             <div class="form-group">
-                                                <div class="form-group" style="margin-left:13px;display;">
+                                                <div class="form-group" style="margin-left:13px;display:inline;">
                                                     <label for="id" style="width:90%;margin-left: 12px;">ID Supplier</label>
                                                     <input type="text" name="id" readonly="readonly" style="width:75%;margin-right: 50px;" class="form-control" id="id" placeholder="ID">
                                                 </div>
-                                                <div class="form-group" style="margin-left:13px;display;">
+                                                <div class="form-group" style="margin-left:13px;display:inline;">
                                                     <label for="nama_supplier" style="width:90%;margin-left: 12px;">Nama Supplier</label>
                                                     <input type="text" name="namasupplier" style="width:75%;margin-right: 50px;" class="form-control" id="namasupplier" placeholder="Nama Supplier">
                                                 </div>
-                                                <div class="form-group" style="margin-left:13px;display;">
+                                                <div class="form-group" style="margin-left:13px;display:inline;">
                                                     <label for="alamat" style="width:90%;">Alamat</label>
                                                     <textarea type="text" name="alamat" style="width:75%;margin-right: 50px;" class="form-control" id="alamat" placeholder="alamat" cols="30" rows="10"></textarea>
                                                 </div>
-                                                <div class="form-group" style="margin-left:13px;display;">
+                                                <div class="form-group" style="margin-left:13px;display:inline;">
                                                     <label for="telepon" style="width:90%;">Telepon</label>
                                                     <input type="text" name="telepon" style="width:50%;margin-right: 50px;" class="form-control" id="telepon" placeholder="telepon">
                                                 </div>
@@ -122,7 +123,7 @@
                                     var telepon1 = $(this).data('telepon');
 
                                     $(".modal-body #id").val(id1);
-                                    $(".modal-body #nama_suppler").val(namasupplier1);
+                                    $(".modal-body #namasupplier").val(namasupplier1);
                                     $(".modal-body #alamat").val(alamat1);
                                     $(".modal-body #telepon").val(telepon1);
 

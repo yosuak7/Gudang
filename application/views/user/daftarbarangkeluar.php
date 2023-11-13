@@ -1,5 +1,5 @@
-<?php $this->load->view('v_header'); ?>
-<?php $this->load->view('Sidebar'); ?>
+<?php $this->load->view('user/v_header'); ?>
+<?php $this->load->view('user/Sidebar'); ?>
 
 <div id="layoutSidenav_content">
     <main>
@@ -23,7 +23,7 @@
                                     <?php echo $this->session->flashdata('berhasildelete'); ?>
                                     <h3 class="box-title"><i class="fa fa-table" aria-hidden="true"></i>Tambah Keluar</h3>
                                 </div>
-                                <a href="<?= base_url('beranda/datakeluar'); ?>" class="btn btn-info mb-3"><i class="fa fa-plus"></i> Tambah Customer</a>
+                                <a href="<?= base_url('user/datakeluar'); ?>" class="btn btn-info mb-3"><i class="fa fa-plus"></i> Tambah Customer</a>
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -31,7 +31,6 @@
                                             <th>Tanggal</th>
                                             <th>Nama Customer</th>
                                             <th>Detail</th>
-                                            <th>Hapus</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -41,8 +40,7 @@
                                                     <td><?= $dd->idtransaksi; ?></td>
                                                     <td><?= $dd->tanggal; ?></td>
                                                     <td><?= $dd->namacustomer; ?></td>
-                                                    <td><a type="button" class="btn btn-success" href="<?= base_url('beranda/detail_keluar/' . $dd->idtransaksi) ?>"  id="buttondetail" style="margin:auto;height:20%">Lihat</a></td>
-                                                    <td><a type="button" class="btn btn-danger btn-delete" href="<?= base_url('beranda/delete_transaksi_keluar/' . $dd->idtransaksi) ?>" id="buttondelete" style="margin:auto;height:20%"><i class="fa fa-trash" aria-hidden="true"></a></td>
+                                                    <td><a type="button" class="btn btn-success" href="<?= base_url('user/detail_keluar/' . $dd->idtransaksi) ?>"  id="buttondetail" style="margin:auto;height:20%">Lihat</a></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php } else { ?>
@@ -55,14 +53,13 @@
                                             <th>Tanggal</th>
                                             <th>Nama Customer</th>
                                             <th>Detail</th>
-                                            <th>Hapus</th>
                                         </tr>
                                     </tfoot>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <?php $this->load->view('v_footer'); ?>
+                    <?php $this->load->view('user/v_footer'); ?>
                     <script src="<?php echo base_url() ?>assets/web_admin/bower_components/jquery/dist/jquery.min.js"></script>
                     <script src="<?php echo base_url() ?>assets/web_admin/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
                     <script src="<?php echo base_url() ?>assets/web_admin/bower_components/fastclick/lib/fastclick.js"></script>

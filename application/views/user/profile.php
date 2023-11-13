@@ -60,23 +60,21 @@
                 <label for="email" class="col-sm-2 control-label">Email</label>
 
                 <div class="col-sm-10">
-                  <input type="email" name="email" class="form-control" id="email" value="<?= $this->session->userdata('email') ?>">
+                  <input type="email" required name="email" class="form-control" id="email" value="<?= $this->session->userdata('email') ?>">
                 </div>
               </div>
               <div class="form-group">
                 <label for="new_password" class="col-sm-2 control-label">New Password</label>
 
                 <div class="col-sm-10">
-                  <input type="password" name="new_password" class="form-control" id="new_password" placeholder="New Password">
-                  <small><span class="text-danger"><?php echo form_error('new_password', '<small class="text-danger pl-3">', '</small>');?></span></small>
+                  <input type="password" required name="new_password" class="form-control" id="new_password" placeholder="New Password">
                 </div>
               </div>
               <div class="form-group">
                 <label for="confirm_new_password" class="col-sm-2 control-label">Confirm New Password</label>
 
                 <div class="col-sm-10">
-                  <input type="password" name="confirm_new_password" class="form-control" id="confirm_new_password" placeholder="Confirm New Password">
-                  <small><span class="text-danger"><?php echo form_error('confirm_new_password', '<small class="text-danger pl-3">', '</small>');?></span></small>
+                  <input type="password" required name="confirm_new_password" class="form-control" id="confirm_new_password" placeholder="Confirm New Password">
                 </div>
               </div>
               <?php if (isset($token_generate)) { ?>
@@ -104,7 +102,22 @@
       <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
       <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
       <script src="assets/demo/datatables-demo.js"></script>
+      <script>
+	var password = document.getElementById("new_password"),
+		confirm_password = document.getElementById("confirm_new_password");
+
+	function validatePassword() {
+		if (password.value != confirm_password.value) {
+			confirm_password.setCustomValidity("Password Tidak Sama");
+		} else {
+			confirm_password.setCustomValidity('');
+		}
+	}
+
+	password.onchange = validatePassword;
+	confirm_password.onkeyup = validatePassword;
+</script>
       </body>
 
       </html>
-      <?php $this->load->view('user/v_footer'); ?>
+      <?php $this->load->view('v_footer'); ?>

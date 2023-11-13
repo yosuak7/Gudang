@@ -23,11 +23,15 @@
 
                                     <h3 class="box-title"><i class="fa fa-table" aria-hidden="true"></i>Data Customer</h3>
                                 </div>
+                                <a href="<?= base_url('user/inputcustomer'); ?>" class="btn btn-info mb-3"><i class="fa fa-plus"></i> Tambah Customer</a>
                                 <a href="<?= base_url('laporan/laporan_customer_pdf'); ?>" class="btn btn-danger mb-3"><i class="far fa-file-pdf"></i> Download Pdf</a>
                                 <a href="<?= base_url('laporan/export_data_customer'); ?>" class="btn btn-success mb-3"><i class="far fa-file-excel"></i> Export ke Excel</a>
+                                
                                 <table id="example1" class="table table-bordered table-striped">
+                                    
 
                                     <thead>
+                                        
                                         <tr>
                                             <th>Kode id</th>
                                             <th>Nama Customer</th>
@@ -58,6 +62,8 @@
                                             <th>Alamat</th>
                                             <th>No. Telepon</th>
                                             <th>Update</th>
+                                        
+
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -76,19 +82,19 @@
                                     <form action="<?= site_url('user/prosesupdatedatacustomer') ?>" role="form" method="post">
                                         <div class="box-body">
                                             <div class="form-group">
-                                                <div class="form-group" style="margin-left:13px;display;">
+                                                <div class="form-group" style="margin-left:13px;display:inline;">
                                                     <label for="id" style="width:90%;margin-left: 12px;">ID customer</label>
                                                     <input type="text" name="id" readonly="readonly" style="width:75%;margin-right: 50px;" class="form-control" id="id" placeholder="ID">
                                                 </div>
-                                                <div class="form-group" style="margin-left:13px;display;">
+                                                <div class="form-group" style="margin-left:13px;display:inline;">
                                                     <label for="nama_customer" style="width:90%;margin-left: 12px;">Nama Customer</label>
                                                     <input type="text" name="namacustomer" style="width:75%;margin-right: 50px;" class="form-control" id="nama_customer" placeholder="Nama Customer">
                                                 </div>
-                                                <div class="form-group" style="margin-left:13px;display;">
+                                                <div class="form-group" style="margin-left:13px;display:inline;">
                                                     <label for="alamat" style="width:90%;">Alamat</label>
                                                     <textarea type="text" name="alamat" style="width:75%;margin-right: 50px;" class="form-control" id="alamat" placeholder="alamat" cols="30" rows="10"></textarea>
                                                 </div>
-                                                <div class="form-group" style="margin-left:13px;display;">
+                                                <div class="form-group" style="margin-left:13px;display:inline;">
                                                     <label for="telepon" style="width:90%;">Telepon</label>
                                                     <input type="text" name="telepon" style="width:50%;margin-right: 50px;" class="form-control" id="telepon" placeholder="telepon">
                                                 </div>

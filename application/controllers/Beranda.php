@@ -33,9 +33,9 @@ class Beranda extends CI_Controller
       redirect(base_url('Login'));
     }
   }
+
   public function barangkeluar()
   {
-
     $this->load->model('M_admin');
     if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
       $data = array(
@@ -48,6 +48,7 @@ class Beranda extends CI_Controller
       redirect(base_url('Login'));
     }
   }
+
   public function inputbarang()
   {
     $this->load->model('M_admin');
@@ -57,6 +58,7 @@ class Beranda extends CI_Controller
       redirect(base_url('Login'));
     }
   }
+
   public function inputcustomer()
   {
     $this->load->model('M_admin');
@@ -66,6 +68,7 @@ class Beranda extends CI_Controller
       redirect(base_url('Login'));
     }
   }
+
   public function inputsupplier()
   {
     $this->load->model('M_admin');
@@ -75,10 +78,12 @@ class Beranda extends CI_Controller
       redirect(base_url('Login'));
     }
   }
+
   public function randomstring()
   {
     echo random_string('numeric', 8);
   }
+
   public function laporandatabarang()
   {
     $this->load->model('M_admin');
@@ -105,6 +110,7 @@ class Beranda extends CI_Controller
       redirect(base_url('Login'));
     }
   }
+
   public function datasupplier()
   {
     $this->load->model('M_admin');
@@ -117,6 +123,7 @@ class Beranda extends CI_Controller
       redirect(base_url('Login'));
     }
   }
+
   public function delete_barang($id)
   {
     $this->load->model('M_admin');
@@ -147,6 +154,7 @@ class Beranda extends CI_Controller
   </div>');
     redirect(base_url('beranda/barangmasuk'));
   }
+
   public function delete_transaksi_keluar($idtransaksi)
   {
     $this->load->model('M_admin');
@@ -163,6 +171,7 @@ class Beranda extends CI_Controller
   </div>');
     redirect(base_url('beranda/barangkeluar'));
   }
+
   public function delete_customer($id)
   {
     $this->load->model('M_admin');
@@ -214,6 +223,7 @@ class Beranda extends CI_Controller
 
     redirect(base_url('beranda/detail_keluar', $data));
   }
+
   public function delete_barang_masuk($kodeid)
   {
     $this->load->model('M_admin');
@@ -238,6 +248,7 @@ class Beranda extends CI_Controller
                                               ")->result_array();
     redirect(base_url('beranda/detail_masuk', $data));
   }
+
   function submitbarangmasuk($idtransaksi = 0)
   {
     $this->load->model('M_admin');
@@ -322,6 +333,7 @@ class Beranda extends CI_Controller
       $this->load->view('modal', $data);
     }
   }
+
   function submitdatamasuk()
   {
     $this->load->model('M_admin');
@@ -429,7 +441,7 @@ class Beranda extends CI_Controller
         <span aria-hidden="true">&times;</span>
       </button>
     </div>');
-      redirect(base_url('beranda/detail_keluar'));
+      redirect(base_url('beranda/barangkeluar'));
     }
     $kodeid = $this->input->post('kodeid', TRUE);
     $tanggal  = $this->input->post('tanggal', TRUE);
@@ -535,6 +547,7 @@ class Beranda extends CI_Controller
   </div>');
     redirect(base_url('beranda/inputcustomer'));
   }
+
   public function submitsupplier()
   {
     $this->load->model('M_admin');
@@ -557,6 +570,7 @@ class Beranda extends CI_Controller
   </div>');
     redirect(base_url('beranda/inputsupplier'));
   }
+
   public function submitbarangbaru()
   {
     $this->load->model('M_admin');
@@ -598,6 +612,7 @@ class Beranda extends CI_Controller
       redirect(base_url('beranda/inputbarang'));
     }
   }
+
   public function datamasuk()
   {
     $this->load->model('M_admin');
@@ -611,6 +626,7 @@ class Beranda extends CI_Controller
       redirect(base_url("Login"));
     }
   }
+
   public function datakeluar()
   {
     $this->load->model('M_admin');
@@ -645,6 +661,7 @@ class Beranda extends CI_Controller
       redirect(base_url("Login"));
     }
   }
+
   public function detail_keluar($idtransaksi)
   {
     $this->load->model('M_admin');
@@ -674,7 +691,6 @@ class Beranda extends CI_Controller
     //rules
     $this->form_validation->set_rules('kodebarang', 'Kode Barang', 'required|numeric');
     $this->form_validation->set_rules('namabarang', 'Nama Barang', 'required');
-    $this->form_validation->set_rules('jumlah', 'Jumlah', 'required|numeric');
     $this->form_validation->set_rules('satuan', 'Satuan', 'required');
 
     $this->form_validation->set_message('required', '%s Tidak Boleh Kosong');
@@ -689,18 +705,16 @@ class Beranda extends CI_Controller
     </div>');
       redirect(base_url('beranda/laporandatabarang'));
     }
+
     $kodebarang  = $this->input->post('kodebarang', TRUE);
     $namabarang  = $this->input->post('namabarang', TRUE);
     $satuan       = $this->input->post('satuan', TRUE);
-    $jumlah       = $this->input->post('jumlah', TRUE);
-
 
     $where = array('kodebarang' => $kodebarang);
     $data = array(
       'kodebarang'  => $kodebarang,
       'namabarang'  => $namabarang,
-      'satuan'       => $satuan,
-      'jumlah'       => $jumlah
+      'satuan'       => $satuan
     );
     $this->M_admin->update('databarang', $data, $where);
     $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -711,11 +725,11 @@ class Beranda extends CI_Controller
   </div>');
     redirect(base_url('beranda/laporandatabarang'));
   }
+
   function prosesupdatedatacustomer()
   {
     $this->load->model('M_admin');
     $this->load->library('form_validation');
-
     //rules
     $this->form_validation->set_rules('namacustomer', 'Nama Customer', 'required');
     $this->form_validation->set_rules('alamat', 'Alamat', 'required');
@@ -754,6 +768,7 @@ class Beranda extends CI_Controller
   </div>');
     redirect(base_url('beranda/datacustomer'));
   }
+
   function prosesupdatedatasupplier()
   {
     $this->load->model('M_admin');
@@ -781,7 +796,6 @@ class Beranda extends CI_Controller
     $alamat  = $this->input->post('alamat', TRUE);
     $telepon       = $this->input->post('telepon', TRUE);
 
-
     $where = array('id' => $id);
     $data = array(
       'id'  => $id,
@@ -798,6 +812,7 @@ class Beranda extends CI_Controller
   </div>');
     redirect(base_url('beranda/datasupplier'));
   }
+
   public function proses_new_password()
   {
     $this->load->model('M_admin');
@@ -837,6 +852,7 @@ class Beranda extends CI_Controller
       $this->load->view('profile');
     }
   }
+
   public function profile()
   {
     if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
@@ -847,10 +863,12 @@ class Beranda extends CI_Controller
       redirect(base_url("Login"));
     }
   }
+
   public function token_generate()
   {
     return $tokens = md5(uniqid(true));
   }
+
   public function users()
   {
     $this->load->model('M_admin');
@@ -878,6 +896,7 @@ class Beranda extends CI_Controller
   </div>');
     redirect(base_url('beranda/users'));
   }
+
   public function update_user()
   {
     $this->load->model('M_admin');
@@ -888,6 +907,7 @@ class Beranda extends CI_Controller
     $this->session->set_userdata($data);
     $this->load->view('formupdate_users', $data);
   }
+
   public function form_user()
   {
     $this->load->model('M_admin');
@@ -895,6 +915,7 @@ class Beranda extends CI_Controller
     $this->session->set_userdata($data);
     $this->load->view('forminsert_users', $data);
   }
+
   public function proses_tambah_user()
   {
     $this->load->model('M_admin');
@@ -946,14 +967,15 @@ class Beranda extends CI_Controller
   {
     return password_hash($password, PASSWORD_DEFAULT);
   }
+
   public function logout()
   {
     session_destroy();
     $this->load->view('login');
   }
+
   public function detail_stok($kodebarang)
   {
-
     $this->load->model('M_admin');
     if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
       $where = array('kodebarang' => $kodebarang);
@@ -962,8 +984,6 @@ class Beranda extends CI_Controller
       $data['detailstok'] = $this->db->query("SELECT transaksi.tanggal,transaksi.idtransaksi,transaksi.kodebarang,transaksi.namabarang,transaksi.keterangan,transaksi.jumlahkeluar,transaksi.jumlahmasuk,transaksi.awal
       FROM transaksi WHERE transaksi.kodebarang='$kodebarang'  order by tanggal asc
       ")->result_array();
-
-
       $this->load->view('detail_stok', $data);
     } else {
       redirect(base_url('Login'));
@@ -973,7 +993,6 @@ class Beranda extends CI_Controller
   //fungsi jika ingin memfilter berdasarkan tanggal
   public function filter($kodebarang)
   {
-
     $this->load->model('M_admin');
     if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
       $date1        = $this->input->post('date1');
@@ -984,8 +1003,6 @@ class Beranda extends CI_Controller
       $data['detailstok'] = $this->db->query("SELECT transaksi.tanggal,transaksi.idtransaksi,transaksi.kodebarang,transaksi.namabarang,transaksi.keterangan,transaksi.jumlahkeluar,transaksi.jumlahmasuk,transaksi.awal
       FROM transaksi WHERE transaksi.kodebarang='$kodebarang' AND tanggal  BETWEEN '$date1' AND '$date2' order by tanggal asc
       ")->result_array();
-
-
       $this->load->view('detail_stok', $data);
     } else {
       redirect(base_url('Login'));

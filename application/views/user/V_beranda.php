@@ -11,27 +11,27 @@
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Tambah Data</div>
+                                    <div class="card-body">Data Barang</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="<?php echo base_url('user/inputbarang')?>">View Details</a>
+                                        <a class="small text-white stretched-link" href="<?php echo base_url('user/laporandatabarang')?>">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Data Masuk</div>
+                                    <div class="card-body">Barang Masuk</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="<?php echo base_url('user/laporanbarangmasuk')?>">View Details</a>
+                                        <a class="small text-white stretched-link" href="<?php echo base_url('user/barangmasuk')?>">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Data Keluar</div>
+                                    <div class="card-body">Barang Keluar</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="<?php echo base_url('user/laporanbarangkeluar')?>">View Details</a>
+                                        <a class="small text-white stretched-link" href="<?php echo base_url('user/barangkeluar')?>">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>

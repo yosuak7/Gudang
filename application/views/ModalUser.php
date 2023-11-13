@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group" style="display:block;">
                   <label for="email" style="width:73%;">Email</label>
-                  <input type="text" required name="email" style="width:70%;margin-right: 67px;" class="form-control" id="email" placeholder="Email">
+                  <input type="email" required name="email" style="width:70%;margin-right: 67px;" class="form-control" id="email" placeholder="Email">
                   <small><span class="text-danger"><?php echo form_error('email', '<small class="text-danger pl-3">', '</small>'); ?></span></small>
                 </div>
                 <div class="form-group" style="display:block;">

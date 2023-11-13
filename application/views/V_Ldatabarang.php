@@ -98,11 +98,6 @@
                           <small><span class="text-danger"><?php echo form_error('satuan'); ?></span></small>
                         </div>
                       </div>
-                      <div class="form-group" style="margin-left:13px;display:inline;">
-                        <label for="jumlah" style="width:90%;">Stok Awal</label>
-                        <input type="text" name="jumlah" style="width:50%;margin-right: 50px;" class="form-control" id="jumlah" placeholder="Stok Awal">
-                        <small><span class="text-danger"><?php echo form_error('jumlah'); ?></span></small>
-                      </div>
                       <!-- /.box-body -->
                       <div class="modal-footer">
                         <button type="submit" class="btn btn-success"><i aria-hidden="true"></i> Update</button>

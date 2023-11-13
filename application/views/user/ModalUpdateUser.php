@@ -1,5 +1,5 @@
-<?php $this->load->view('v_header'); ?>
-<?php $this->load->view('Sidebar'); ?>
+<?php $this->load->view('user/v_header'); ?>
+<?php $this->load->view('user/Sidebar'); ?>
 <!-- Modal User -->
 <div class="modal fade" id="modalupdateuser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -8,7 +8,7 @@
         <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
       </div>
       <div class="modal-body table-responsive">
-        <form action="<?= site_url('beranda/proses_update_users') ?>" role="form" method="post">
+        <form action="<?= site_url('user/proses_update_users') ?>" role="form" method="post">
           <div class="box-body">
             <div class="form-group">
 
@@ -40,7 +40,7 @@
                 <?php if (isset($token_generate)) { ?>
                   <input type="hidden" name="token" class="form-control" value="<?= $token_generate ?>">
                 <?php } else {
-                  redirect(base_url('beranda/users'));
+                  redirect(base_url('user/users'));
                 } ?>
 
                 <!-- /.box-body -->
