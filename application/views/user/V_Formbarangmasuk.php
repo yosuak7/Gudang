@@ -58,7 +58,7 @@
                         <option value="Gudang">Gudang</option>]
                       </select>
                     </div>
-                    <div class="form-group" style="margin-left:13px;display;">
+                    <div class="form-group" style="margin-left:13px;display:inline;">
                       <label for="namasupplier" style="width:90%;margin-left: 12px;">Nama Supplier</label>
                       <input type="text" name="namasupplier" readonly="readonly" style="width:50%;margin-right: 100px;" class="form-control" id="namasupplier" placeholder="Nama Supplier" data-target="#modal-item" value="">
                       <button type="button" data-toggle="modal" class="btn btn-info btn-flat" data-target="#modalsearch" id="buttonpilih" style="height:4%">
@@ -66,32 +66,32 @@
                         <i class="fa fa-solid fa-search" aria-hidden="true"></i>
                       </button>
                     </div>
-                    <div class="form-group" style="margin-left:13px;display;">
+                    <div class="form-group" style="margin-left:13px;display:inline;">
                       <label for="alamat" style="width:90%;">Alamat</label>
                       <input type="text" name="alamat" readonly="readonly" style="width:50%;margin-right: 50px;" class="form-control" id="alamat" placeholder="Alamat" value="">
 
                     </div>
-                    <div class="form-group" style="margin-left:13px;display;">
+                    <div class="form-group" style="margin-left:13px;display:inline;">
                       <label for="telepon" style="width:90%;">Telepon</label>
                       <input type="text" name="telepon" readonly="readonly" style="width:50%;margin-right: 50px;" class="form-control" id="telepon" placeholder="Telepon" value="">
 
                     </div>
-                    <div class="form-group" style="margin-left:13px;display;">
+                    <div class="form-group" style="margin-left:13px;display:inline;">
                       <label for="kode_barang" style="width:90%;margin-left: 12px;">Kode Barang / Barcode</label>
                       <input type="text" name="kodebarang" readonly="readonly" style="width:50%;margin-right: 50px;" class="form-control" id="kode_barang" placeholder="Kode Barang" data-target="#modal-item" value="<?= $d->kodebarang ?>">
                       <small><span class="text-danger"><?php echo form_error('kodebarang'); ?></span></small>
                     </div>
-                    <div class="form-group" style="margin-left:13px;display;">
+                    <div class="form-group" style="margin-left:13px;display:inline;">
                       <label for="nama_Barang" style="width:90%;">Nama Barang</label>
                       <input type="text" name="namabarang" readonly="readonly" style="width:50%;margin-right: 50px;" class="form-control" id="nama_Barang" placeholder="Nama Barang" value="<?= $d->namabarang ?>">
                       <small><span class="text-danger"><?php echo form_error('namabarang'); ?></span></small>
                     </div>
-                    <div class="form-group" style="margin-left:13px;display;">
+                    <div class="form-group" style="margin-left:13px;display:inline;">
                       <label for="nama_Barang" style="width:90%;">Satuan</label>
                       <input type="text" name="satuan" readonly="readonly" style="width:50%;margin-right: 50px;" class="form-control" id="satuan" placeholder="Satuan" value="<?= $d->satuan ?>">
                       <small><span class="text-danger"><?php echo form_error('satuan'); ?></span></small>
                     </div>
-                    <div class="form-group" style="margin-left:13px;display;">
+                    <div class="form-group" style="margin-left:13px;display:inline;">
                       <label for="nama_Barang" style="width:90%;">Jumlah</label>
                       <input type="text" name="jumlah" style="width:50%;margin-right: 50px;" class="form-control" id="jumlah" placeholder="Jumlah">
                       <small><span class="text-danger"><?php echo form_error('jumlah'); ?></span>Stok Tersedia: <?= $d->jumlah ?></small>
